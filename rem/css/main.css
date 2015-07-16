@@ -1,0 +1,23 @@
+html {
+  font-size: 20px;
+}
+.wrapper {
+  max-width: 32rem;
+  height: 1136px;
+  margin: 0 auto;
+  background-color: #e7e7e7;
+  padding-top: 1em;
+}
+.btn {
+  display: block;
+  width: 10rem;
+  height: 2.5rem;
+  background-color: blue;
+  border-radius: 10px;
+  margin: 0 auto;
+  line-height: 2.5rem;
+  color: #FFF;
+  text-align: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
