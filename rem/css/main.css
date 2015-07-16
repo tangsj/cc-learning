@@ -1,9 +1,16 @@
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
 html {
   font-size: 20px;
 }
 .wrapper {
   max-width: 32rem;
-  height: 1136px;
+  height: 28.4rem;
   margin: 0 auto;
   background-color: #e7e7e7;
   padding-top: 1em;
@@ -13,7 +20,7 @@ html {
   width: 10rem;
   height: 2.5rem;
   background-color: blue;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   margin: 0 auto;
   line-height: 2.5rem;
   color: #FFF;
