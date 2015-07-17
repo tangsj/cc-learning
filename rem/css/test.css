@@ -7,7 +7,7 @@ a { text-decoration: none; color: #666; }
 p, h1, h2, h3 { margin: 0; padding: 0; }
 ul, li { padding: 0; margin: 0; list-style: none; }
 
-/* Nav */ 
+/* Nav */  
 .site-nav {
   position: fixed;
   bottom: 0; 
@@ -24,7 +24,7 @@ ul, li { padding: 0; margin: 0; list-style: none; }
   text-align: center;
   padding-top: 60px;
   padding-bottom: 12px;
-  user-select: none;
+  user-select: none; 
   position: relative;
   letter-spacing: 4px; 
 }

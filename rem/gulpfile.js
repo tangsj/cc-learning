@@ -16,16 +16,19 @@ gulp.task('postcss', function(){
   var processors = [
       vars,
       cssimport,
-      autoprefixer({browsers: ['last 2 versions']}),
-      //csswring({
-      //  preserveHacks: true,
-      //  removeAllComments: true
-      //}),
-      px2rem({ remUnit: 40 })
+      px2rem({ remUnit: 40 }),
+      autoprefixer({browsers: ['last 2 versions']})
   ];
   return gulp.src('./css/main.css') 
           .pipe(sourcemaps.init())
           .pipe(gulp_postcss(processors))
+          .on('error', errorHandler)
+          .pipe(gulp_postcss([ // 这里与px2rem 同时加入processors里会造成 removeAllComments 失效
+            csswring({
+              preserveHacks: true,
+              removeAllComments: true
+            })
+          ]))
           .on('error', errorHandler)
           .pipe(rename({suffix: ".min"}))
           .pipe(sourcemaps.write('.'))
