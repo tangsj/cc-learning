@@ -16,7 +16,7 @@ gulp.task('postcss', function(){
   var processors = [
       vars,
       cssimport,
-      px2rem({ remUnit: 64 }),
+      px2rem({ remUnit: 40 }),
       autoprefixer({browsers: ['last 2 versions']})
   ];
   return gulp.src('./css/main.css') 
