@@ -7,6 +7,12 @@ a { text-decoration: none; color: #666; }
 p, h1, h2, h3 { margin: 0; padding: 0; }
 ul, li { padding: 0; margin: 0; list-style: none; }
 
+.wrapper{
+  width: 640px;
+  position: relative;
+  margin: 0 auto;
+}
+
 /* Nav */  
 .site-nav {
   position: fixed;
@@ -22,10 +28,10 @@ ul, li { padding: 0; margin: 0; list-style: none; }
   color: #749eb3;
   font-weight: bold;
   text-align: center;
-  padding-top: 60px;
+  padding-top: 60px; 
   padding-bottom: 12px;
   user-select: none; 
-  position: relative; 
+  position: relative;  
   letter-spacing: 4px; 
 }
 .site-nav a:after {

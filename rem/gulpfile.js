@@ -16,7 +16,7 @@ gulp.task('postcss', function(){
   var processors = [
       vars,
       cssimport,
-      px2rem({ remUnit: 40 }),
+      px2rem({ remUnit: 32 }),
       autoprefixer({browsers: ['last 2 versions']})
   ];
   return gulp.src('./css/main.css') 
@@ -45,8 +45,5 @@ gulp.task('watch', function () {
 gulp.task('default', ['postcss','watch']);
 
 function errorHandler(error){
-  console.log(error.message);
-  console.log(error.fileName);
-  console.log('line:', error.line, 'column:', error.column);
   this.emit('end');
 }
