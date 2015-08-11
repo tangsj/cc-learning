@@ -1,0 +1,10 @@
+/* Reset */
+html, body { height: 100%; }
+* { -webkit-box-sizing: border-box; box-sizing: border-box; }
+body { font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif; overflow-x: hidden; background: #999; }
+input, select, textarea { -webkit-appearance: none; }
+a { text-decoration: none; color: #666; }
+p, h1, h2, h3 { margin: 0; padding: 0; } 
+ul, li { padding: 0; margin: 0; list-style: none; }
+
+.wrapper { width: 750px; position: relative; margin: 0 auto; background: url(../images/wrap_bg.jpg) no-repeat; background-size: cover; height: 1334px;  } 
