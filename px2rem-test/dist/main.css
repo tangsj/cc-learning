@@ -1,0 +1,15 @@
+.wrapper {
+  width: 10rem;
+}
+
+[data-dpr="1"] .wrapper {
+  font-size: 32px;
+}
+
+[data-dpr="2"] .wrapper {
+  font-size: 64px;
+}
+
+[data-dpr="3"] .wrapper {
+  font-size: 96px;
+}
