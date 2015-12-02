@@ -3,7 +3,7 @@
 var gulp         = require('gulp');
 var clean        = require('gulp-clean');
 var rename       = require('gulp-rename');
-var babel= require('gulp-babel');
+var babel        = require('gulp-babel');
 
 gulp.task('clean', function(){
   return gulp.src('./build')

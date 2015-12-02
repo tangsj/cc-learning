@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ECMAscript 5.1</title>
+</head>
+<body>
+  <script>
+    var obj;
+    window.onload = function(){
+      obj = Object.create({});
+
+      Object.defineProperty(obj, 'name', {
+        value: 'tangsj',
+        writable: true,
+        configurable: true,
+        enumerable: true
+      });
+
+      Object.defineProperty(obj, 'age', {
+        configurable: true,
+        enumerable: true,
+        set: function(val){
+          console.log('set name');
+        },
+        get: function(){
+          console.log('get name');
+          return 1;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

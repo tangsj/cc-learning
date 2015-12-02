@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array</title>
+</head>
+<body>
+  <script>
+  var testArr = [1, 2, 3, 4, 5];
+
+  console.log('isArray:', Array.isArray(testArr));
+
+  testArr.forEach(function(item, index){
+    console.log('forEach testArr:', item, ';index:' ,index);
+  });
+
+  testArr.map(function(item, index){
+    console.log('map testArr:', item, ';index:' ,index);
+  });
+  </script>
+</body>
+</html>

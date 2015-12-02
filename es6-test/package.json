@@ -2,6 +2,7 @@
   "name": "ecma-6",
   "main": "index.js",
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-amd": "^6.1.18",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-clean": "^0.3.1",
