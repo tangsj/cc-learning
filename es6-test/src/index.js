@@ -25,3 +25,7 @@ var set = new Set(["a", "b", "c"]);
 
 import * as obj from './module';
 console.log(obj); 
+
+var a = () => {
+  console.log('fun');
+}

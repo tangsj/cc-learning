@@ -1,5 +1,3 @@
-var obj = {
+export var obj = {
   name: 'export'
 }
-
-export obj;

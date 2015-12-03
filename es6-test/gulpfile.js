@@ -12,7 +12,10 @@ gulp.task('clean', function(){
 
 gulp.task('es6', ['clean'],  function(){
   return gulp.src('./src/**/*.js', { base: process.cwd() })
-        .pipe(babel())
+        .pipe(babel({
+          //presets: ['es2015'],
+          //plugins: ['transform-es2015-modules-amd']
+        }))
         .on('error', errorHandler)
         .pipe(rename({
           dirname: './build'
@@ -24,7 +27,7 @@ gulp.task('watch', function(){
   gulp.watch([
     './src/**/*.js'
   ], ['es6']);
-});0
+});
 
 gulp.task('default', ['es6']);
 
