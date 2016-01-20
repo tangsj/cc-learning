@@ -14,9 +14,13 @@ module.exports = {
   },
   module: {
     loaders: [
-      { 
-        test: /\.css$/, 
+      {
+        test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=8192'  // 8kb
       }
     ]
   },
@@ -25,7 +29,7 @@ module.exports = {
     new ExtractTextPlugin('main.css', {  // 样式打包文件
       allChunks: true
     }),
-    new webpack.optimize.UglifyJsPlugin(), // 代码压缩 
+    new webpack.optimize.UglifyJsPlugin() // 代码压缩
     //new webpack.optimize.OccurenceOrderPlugin()
   ]
 }

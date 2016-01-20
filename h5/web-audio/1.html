@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Audio</title>
+  <script src="../jquery-2.0.3.min.js"></script>
+  <style>
+    html, body{ height: 100%; }
+    button{ width: 100%;height: 80px; font-size: 32px;  border: 1px solid red; border-radius: 20px;}
+  </style>
+</head>
+<body>
+  <button class="click-play">Play</button>
+
+  <script>
+    window.onload = function(){
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+
+      var context = new AudioContext();
+
+      var source, audioURL = './audio1.mp3'; // 音频文件URL
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', audioURL, true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onload = function() {
+        context.decodeAudioData(xhr.response, function (buffer) {
+          source = context.createBufferSource();
+          //source.loop = true;
+          source.buffer = buffer;
+          source.connect(context.destination);
+          console.log(source);
+          Page._init();
+        });
+      }
+      xhr.send();
+
+      var Page = {
+        _init: function(){
+          $('.click-play').on('click', function(){
+            console.log(source);
+            source.start(0);
+          }).trigger('click');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

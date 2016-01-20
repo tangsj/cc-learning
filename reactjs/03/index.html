@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reace 03</title>  
+  <script src="../lib/react.js"></script>
+  <script src="../lib/react-dom.js"></script>
+  <script src="../lib/babel-core/browser.min.js"></script>
+</head>
+<body>
+  <div id="example"></div>
+  <script type="text/babel">
+
+    var TodoList = React.createClass({
+      render: function(){
+        var createItem = function(item){
+          return <p key={ item.id }>{ item.text }</p>
+        }
+        return (
+          <div>
+            { this.props.items.map(createItem) }
+          </div>
+        );
+      }
+    });
+
+    var TodoApp = React.createClass({
+      getInitialState: function(){
+        return {
+          items: [],
+          text: ''
+        }
+      },
+      onChange: function(e){
+        this.setState({text: e.target.value});
+      },
+      onClick: function(e){
+        e.preventDefault();
+        var nextItems = this.state.items.concat([{text: this.state.text, id: Date.now()}]);
+        this.setState({items: nextItems});
+      },
+      render: function(){
+        return (
+          <div>
+            <TodoList items={ this.state.items } />
+            <input onChange={this.onChange} value={this.state.text} className="ui-input"/>
+            <a href="javascript:;" onClick={this.onClick}>Add #{this.state.items.length}</a>
+          </div>
+        );
+      }
+    });
+
+    ReactDOM.render(<TodoApp />, document.querySelector('#example'));
+  </script>
+</body>
+</html>

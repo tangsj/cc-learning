@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reace 01</title>
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+    <script src="../lib/babel-core/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      var FirstClass = React.createClass({
+        render: function() {
+          return <div>Hello {this.props.name}</div>;
+        }
+      });
+      ReactDOM.render(<FirstClass name="React" />, document.querySelector('#example'));
+    </script>
+  </body>
+</html>

@@ -26,12 +26,38 @@ var set = new Set(["a", "b", "c"]);
 //import * as obj from './module';
 //console.log(obj); 
 
-var a = (x = 1) => {
+var a = (x = 1, y = 2, z = 1) => {
   console.log('fun');
 }
 
-func = () => {
-  console.log('func');
+console.log('Rest: ', ...[1,2,3]);
+
+var o = {
+  method(){
+    return true;
+  }
 }
 
-console.log(...[1,2,3]);
+class Point {
+  constructor(x){
+    this.x = x;
+  }
+  go(){
+    return this.x
+  }
+} 
+var p = new Point('Es6 Class');
+console.log( p.go() );
+
+class TPoint extends Point {
+  constructor(x){
+    super(x);
+  }
+  go(){
+    return this.x + ' Go'
+  }
+}
+
+var tp = new TPoint('Es6 Class Extends');
+console.log(tp.go());
+

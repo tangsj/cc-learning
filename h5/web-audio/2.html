@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2</title>
+</head>
+<body>
+  Press  A-K
+  <input type="text" autofocus="true">
+  <script>
+    var AudioContext=AudioContext||webkitAudioContext;
+    var context=new AudioContext;
+    //为每个键盘位对应一个频率
+    var s={ 65:256, 83:288, 68:320, 70:341, 71:384, 72:426, 74:480, 75:512 };
+    //为每个频率创建一个Oscillator
+    for(var i in s)
+      value=s[i],
+      s[i]=context.createOscillator(), // 创建一个震荡器
+      s[i].frequency.value=value,
+      s[i].start();
+    //键盘按下时将相应频率的Oscillator连接到输出源上
+    addEventListener("keydown",function(e){
+      if(e=s[e.keyCode])e.connect(context.destination);
+    });
+    //键盘松开时将相应频率的Oscillator的连接取消
+    addEventListener("keyup",function(e){
+      if(e=s[e.keyCode])e.disconnect();
+    });
+  </script>
+</body>
+</html>
