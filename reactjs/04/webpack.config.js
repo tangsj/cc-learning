@@ -7,6 +7,11 @@ module.exports = {
   output: {
     filename: 'bundle.js'
   },
+  resolve: {
+    alias: {
+      'jquery' : 'jquery/dist/jquery.min.js'
+    }
+  },
   module: {
     loaders: [
       {

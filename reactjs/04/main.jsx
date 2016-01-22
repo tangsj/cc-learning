@@ -1,6 +1,5 @@
-var {Comp} = require('./comp.jsx');
-var {Es6_Comp} = require('./es6_comp.js');
-
+import { Comp }  from './comp.jsx';
+import { Es6_Comp } from './es6_comp.js';
 
 var vdom = [
   <Comp key="1"/>,
