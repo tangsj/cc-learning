@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flux 学习</title>
+</head>
+<body>
+  Flux : 单向数据流
+
+  <p>View -> Action -> Dispatcher -> Store -> View</p>
+
+  <a href="javascript:;" id="click">Click</a>
+  <script>
+    window.onload = function(){
+      document.getElementById('click').addEventListener('click', function(){
+        btnclick();
+      });
+
+      function btnclick(){
+        Action.add('clickme');
+      }
+
+      var Action = {
+        add: function(text){
+          Dispatcher.dispatch({ // 触发Dispatcher
+            actionType: 'add',
+            text: text
+          });
+        }
+      }
+
+      var Dispatcher = {
+        actions: [],
+        dispatch: function(action){
+          for(var i = 0; i < this.actions.length; i++){
+            this.actions[i](action);
+          }
+        },
+        register: function(fun){
+          this.actions.push(fun);
+        }
+      }
+
+      Dispatcher.register(function(action){
+        switch(action.actionType){
+          case 'add':
+            Store.add(action.text); // 触发Store change
+          break;
+        }
+      });
+
+      var Store = {
+        txt: '',
+        add: function(txt){
+          this.txt = txt;
+          View.callback();
+        }
+      }
+
+
+      var View = {
+        callback: function(){
+          //  更新视图
+          var p = document.createElement('p');
+          p.innerHTML = this.txt;
+          document.body.appendChild(p);
+        }
+      }
+
+    }
+
+  </script>
+</body>
+</html>

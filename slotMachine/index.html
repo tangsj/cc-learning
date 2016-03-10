@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>slotMachine</title>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.slotmachine.min.js"></script>
+
+  <style>
+    .machineContainer{
+      overflow: hidden;
+      height: 411px;
+      width: 533px;
+      margin: 0 auto;
+      background: url(images/machine.png) no-repeat;
+      box-sizing: border-box;
+      padding: 163px 78px;
+    }
+    .slotMachine{
+      width: 100px;
+      border: 1px solid #000;
+      height: 100px;
+      padding: 0px;
+      overflow: hidden;
+      display: inline-block;
+      text-align: center;
+      background-color: #ffffff;
+    }
+    .slotMachine .slot{
+      height:100px;
+      background-position-x: 55%;
+      background-repeat: no-repeat;
+    }
+    .slot1{
+      background-image: url("images/slot1.png");
+    }
+    .slot2{
+      background-image: url("images/slot2.png");
+    }
+    .slot3{
+      background-image: url("images/slot3.png");
+    }
+    .slot4{
+      background-image: url("images/slot4.png");
+    }
+    .slot5{
+      background-image: url("images/slot5.png");
+    }
+    .slot6{
+      background-image: url("images/slot6.png");
+    }
+
+
+    .slotMachineButton{
+      width:100px;
+      height: 100px;
+      overflow: hidden;
+      text-align: center;
+      position: absolute;
+      top: 460px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+    .slotMachineButton {
+      -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+      -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+      box-shadow:inset 0px 1px 0px 0px #fce2c1;
+      background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
+      background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
+      background-color:#ffc477;
+      border-radius: 75px;
+      text-indent:0px;
+      border:6px solid #eeb44f;
+      display:inline-block;
+      color:#ffffff;
+      font-size:40px;
+      font-weight:bold;
+      font-style:normal;
+      height:100px;
+      line-height:110px;
+      margin-top:10px;
+      width:100px;
+      text-decoration:none;
+      text-align:center;
+      text-shadow:1px 1px 0px #cc9f52;
+      cursor:pointer;
+    }
+    .slotMachineButton:hover {
+      background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
+      background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
+      background-color:#fb9e25;
+    }
+    .slotMachineButton:active {
+    }
+  </style>
+</head>
+<body>
+
+  <div class="machineContainer">
+    <div id="machine1" class="slotMachine">
+      <div class="slot slot1"></div>
+      <div class="slot slot2"></div>
+      <div class="slot slot3"></div>
+      <div class="slot slot4"></div>
+      <div class="slot slot5"></div>
+      <div class="slot slot6"></div>
+    </div>
+
+    <div id="machine2" class="slotMachine">
+      <div class="slot slot1"></div>
+      <div class="slot slot2"></div>
+      <div class="slot slot3"></div>
+      <div class="slot slot4"></div>
+      <div class="slot slot5"></div>
+      <div class="slot slot6"></div>
+    </div>
+
+    <div id="machine3" class="slotMachine">
+      <div class="slot slot1"></div>
+      <div class="slot slot2"></div>
+      <div class="slot slot3"></div>
+      <div class="slot slot4"></div>
+      <div class="slot slot5"></div>
+      <div class="slot slot6"></div>
+    </div>
+  </div>
+
+
+  <div id="slotMachineButton1" class="slotMachineButton">GO!</div>
+
+
+  <script>
+    $(document).ready(function(){
+        var machine1 = $("#machine1").slotMachine({
+          active  : 0,
+          delay : 500
+        });
+
+        var machine2 = $("#machine2").slotMachine({
+          active  : 1,
+          delay : 500,
+          direction: 'down'
+        });
+
+        var machine3 = $("#machine3").slotMachine({
+          active  : 2,
+          delay : 500
+        });
+
+        function onComplete(active){
+          // switch(this.element[0].id){
+          //   case 'machine1':
+          //     $("#machine1Result").text("Index: "+this.active);
+          //     break;
+          //   case 'machine2':
+          //     $("#machine2Result").text("Index: "+this.active);
+          //     break;
+          //   case 'machine3':
+          //     $("#machine3Result").text("Index: "+this.active);
+          //     break;
+          // }
+        }
+
+        $("#slotMachineButton1").click(function(){
+
+          machine1.shuffle(5, onComplete);
+          setTimeout(function(){
+            machine2.shuffle(5, onComplete);
+          }, 500);
+          setTimeout(function(){
+            machine3.shuffle(5, onComplete);
+          }, 1000);
+
+        })
+      });
+  </script>
+</body>
+</html>

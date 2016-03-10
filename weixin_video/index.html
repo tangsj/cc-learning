@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weixin_video</title>
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+  <script src="jquery-2.0.3.min.js"></script>
+  <!-- <script src="canvas-video-player.js"></script> -->
+  <style>
+    *{ margin: 0; padding: 0; }
+    video{ background-color: #999; }
+    canvas{ width: 100%; }
+  </style>
+</head>
+<body>
+  <video id="video" class="js-video" preload="true" autoplay="true" width="100%" webkit-playsinline playsinline>
+    <source src="http://t.dongfeng-nissan.com.cn/phy/minisite/default/videos/qashqai_TVC.mp4" type="video/mp4">
+  </video>
+
+  <!-- <canvas id="video_canvas" class="js-canvas"></canvas> -->
+
+  <script>
+    // var vid = document.querySelector('#video');
+    // var video_canvas = document.querySelector('#video_canvas');
+
+    // window.onload = function(){
+    //   console.log('load');
+    //   $('body').on('click', function(){
+    //     console.log('play');
+    //     vid.play();
+    //   });
+    // }
+    // //video_canvas.width = $(window).height();
+
+    // var isIphone = navigator.userAgent.toLowerCase().indexOf('iphone') >= 0;
+    // // Other way to detect iOS
+    // // var isIOS = /iPad|iPhone|iPod/.test(navigator.platform);
+
+    // if (isIphone) {
+    //   if(window.screen.height > 568){
+    //     var canvasVideo = new CanvasVideoPlayer({
+    //       videoSelector: '.js-video',
+    //       canvasSelector: '.js-canvas',
+    //       hideVideo: true,
+    //       //timelineSelector: '.js-timeline',
+    //       framesPerSecond: 20,
+    //       audio: true,
+    //       autoplay: true
+    //     });
+    //   }
+    // }
+    // else {
+    //     // Use HTML5 video
+    // }
+  </script>
+</body>
+</html>

@@ -96,3 +96,5 @@ var TPoint = (function (_Point) {
 
 var tp = new TPoint('Es6 Class Extends');
 console.log(tp.go());
+
+console.log([1, 2, 3, 4].includes(1));
