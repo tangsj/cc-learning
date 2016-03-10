@@ -8,7 +8,7 @@ import rootReducer from './reducers';
 import './css/main.css';
 
 var store = createStore(rootReducer);
-window.store = store;
+
 render(
   <Provider store={ store }>
     <VisibleTodoList />
