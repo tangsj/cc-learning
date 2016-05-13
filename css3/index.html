@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3d</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .camera{
+      width:200px;
+      height:200px;
+      perspective-origin:center center;
+      perspective: 300px;
+      border:1px dashed #000;
+    }
+    .space{
+      width:100%;
+      height:100%;
+      transform-style: preserve-3d;
+      /* transition: transform 2s; */
+    }
+    .space:hover{
+      /* transform: rotate3d(1,1,1,180deg); */
+      animation: space 20s infinite alternate;
+    }
+    .box:nth-child(1) { position: absolute; top: 0; left: 0; width: 100px; height: 100px; background: #000; transform: translateX(50px) translateY(50px) rotateY(60deg); }
+    .box:nth-child(2) { position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: #f00; transform: translateX(50px) translateY(50px) rotateY(-60deg); }
+    .box:nth-child(3) { position: absolute; bottom: 0; top: 40%; width: 100px; height: 100px; background: #0f0; transform: translateX(50px) translateY(50px) rotateY(10deg); }
+    @keyframes space{
+      100%, 0%{
+        transform: rotate3d(0,0,0,0deg);
+      }
+      30%{
+        transform: rotate3d(1,0,0,-180deg);
+      }
+      60%{
+        transform: rotate3d(1,1,0,180deg);
+      }
+      80%{
+        transform: rotate3d(1,1,1,180deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="camera"> <!-- 相机 -->
+    <div class="space"> <!-- 空间 -->
+      <div class="box"></div> <!-- 物体 -->
+      <div class="box"></div> <!-- 物体 -->
+      <div class="box"></div> <!-- 物体 -->
+    </div>
+  </div>
+</body>
+</html>

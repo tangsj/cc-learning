@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Circle Animation</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .path{
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: #f00;
+      position: relative;
+    }
+
+    .wrap{
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: -25px;
+      animation: spin 5s infinite linear;
+      transform-origin: 25px 150px; /* 150px = path radius */
+    }
+
+    .img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #0f0;
+      color: #FFF;
+      text-align: center;
+      line-height: 50px;
+      font-size: 30px;
+      font-weight: bold;
+      animation: inherit;
+      animation-name: spin-reverse;
+    }
+
+    .img1{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #0f0;
+      color: #FFF;
+      text-align: center;
+      line-height: 50px;
+      font-size: 30px;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -25px;
+      margin-top: -25px;
+      z-index: 9;
+      animation: spin1 5s infinite linear;
+    }
+
+    .img2{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #00f;
+      color: #FFF;
+      text-align: center;
+      line-height: 50px;
+      font-size: 30px;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -25px;
+      margin-top: -25px;
+    }
+
+    @keyframes spin1 {
+      from{
+        transform: rotate(0turn) translateY(100px) translateY(50%) rotate(1turn);
+      }
+      to{
+        transform: rotate(1turn) translateY(100px) translateY(50%) rotate(0turn);
+      }
+    }
+
+    @keyframes spin {
+        to { transform: rotate(1turn); }
+    }
+
+    @keyframes spin-reverse {
+        from { transform: rotate(1turn); }
+    }
+  </style>
+</head>
+<body>
+  <div class="path">
+    <div class="wrap">
+      <div class="img">T</div>
+    </div>
+  </div>
+
+  <div class="path">
+      <div class="img1">T</div>
+      <div class="img2">T</div>
+  </div>
+</body>
+</html>

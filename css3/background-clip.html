@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>background-clip</title>
+  <style>
+   *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box{
+      width: 100%;
+      height: 400px;
+      background: url(k3d4fCB.jpg) no-repeat center center;
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    Background-clip, 需要确保： text-fill-color: transparent
+  </div>
+</body>
+</html>
