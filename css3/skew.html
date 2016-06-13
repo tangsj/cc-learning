@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skew</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn{
+      width: 200px;
+      height: 50px;
+      position: relative;
+      color: #FFF;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn::after{
+      content: '';
+      background: #999;
+      transform: skewX(-45deg);
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+    }
+
+    .btn:hover::after{
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <a href="javascript:;" class="btn">Button</a>
+  <a href="javascript:;" class="btn">Button</a>
+</body>
+</html>

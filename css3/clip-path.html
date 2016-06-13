@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clip path</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    img{
+      border: 1px solid #999;
+      -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%);
+      animation: cp 2s forwards 0.4s;
+    }
+
+    @keyframes cp {
+      to {
+        -webkit-clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="lf.jpg" alt="">
+</body>
+</html>

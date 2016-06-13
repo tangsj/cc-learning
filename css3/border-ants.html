@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Border Ants</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box{
+      width: 300px;
+      height: 300px;
+      border: 1px solid transparent;
+      padding: 1em;
+      background: linear-gradient(white, white) padding-box,
+                  repeating-linear-gradient(-45deg, black 0, black 25%, white 0, white 50%) 0 / .6em .6em;
+      animation: ants 12s linear infinite;
+    }
+
+    @keyframes ants{
+      to{ background-position: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Video Ctrl</title>
+  <link href="//cdn.bootcss.com/normalize/4.1.1/normalize.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <style>
+    html, body{
+      width: 100%;
+      height: 100%;
+    }
+    .tree{
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      height: 100%;
+      padding-top: 100px;
+      z-index: 99;
+      color: #FFF;
+      font-size: 30px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .tree a{
+      color: #FFF;
+      border: 1px solid #FFF;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      font-size: 14px;
+      display: inline-block;
+      text-decoration: none;
+      line-height: 100px;
+    }
+    .video-wrap{
+      /* display: none; */
+    }
+    video{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* transform-origin: left top; */
+    }
+  </style>
+</head>
+<body>
+  <div class="video-wrap">
+    <video webkit-playsinline src="http://7xtt9v.com2.z0.glb.qiniucdn.com/sprite_all.mp4" id="spriteMedia"></video>
+  </div>
+
+  <div class="tree tree1">第1个暂停节点 <br><a href="javascript:;">去第2个节点</a> <a href="javascript:;">去第3个节点</a></div>
+  <div class="tree tree2">第2个暂停节点</div>
+  <div class="tree tree3">第3个暂停节点</div>
+
+  <script>
+    $(function(){
+      var $win = $(window);
+      var $body = $('body');
+
+      var _width = $win.width();
+      var _height = $win.height();
+
+      var $video = $('video');
+      var video = $video.get(0);
+
+      var $tree1 = $('.tree1');
+      var $tree2 = $('.tree2');
+      var $tree3 = $('.tree3');
+
+      $video.on('timeupdate', function(){
+        var ct = parseInt(video.currentTime);
+
+        console.log(ct);
+
+        if([38, 66].indexOf(ct) != -1){
+          video.pause();
+          $tree1.show();
+        }
+      });
+
+
+      $tree1.on('click', 'a:nth-of-type(1)', function(){
+        console.log('去第2个节点');
+
+        $tree1.hide();
+        video.currentTime = 45;
+        video.play();
+      }).on('click', 'a:nth-of-type(2)', function(){
+        console.log('去第3个节点');
+
+        $tree1.hide();
+        video.currentTime = 73;
+        video.play();
+      });;
+
+      // $body.on('click', function(){
+        video.currentTime = 34;
+        video.play();
+      // });
+      // $video.css({
+      //   width: _height,
+      //   height: _width,
+      //   transform: 'translateX('+ _width +'px) rotate(90deg)'
+      // });
+    });
+  </script>
+</body>
+</html>

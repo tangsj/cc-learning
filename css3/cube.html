@@ -21,14 +21,14 @@
       width: 200px;
       height: 200px;
       position: relative;
-      /* perspective-origin: 0% 50%; */
+      /* perspective-origin: 100% 50%; */
       perspective: 400px;
     }
     .stage .cube{
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      animation: cube 10s linear infinite;
+      /* animation: cube 10s linear infinite; */
     }
 
     @keyframes cube{
@@ -73,6 +73,7 @@
     .face:nth-child(6) {
       background: rgba(0, 0, 255, 1);
       transform: translateZ(100px);
+      opacity: 0.5;
     }
   </style>
 </head>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>PDF Reader</title>
   <script src="pdfobject.js"></script>
+  <script src="//cdn.bootcss.com/jquery/1.8.3/jquery.js"></script>
   <style>
     *{ margin: 0; padding: 0;  }
     html, body, #container{ width: 100%; height: 100%; overflow: hidden; }
@@ -19,6 +20,15 @@
       line-height: 32px;
       display: none;
     }
+    iframe{
+      display: none;
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -26,12 +36,81 @@
   <div id="tip">
     您的浏览器不支持在线预览，请下载 <a href="https://get.adobe.com/cn/reader/">Adobe Reader</a>安装后再使用在线预览功能 或<a href="size.pdf">直接下载</a>文件
   </div>
+
+  <iframe src="#" frameborder="0" id="pdfiframe"></iframe>
   <script>
-  // alert(PDFObject.supportsPDFs);
-    if(PDFObject.supportsPDFs){
-       PDFObject.embed("size.pdf", "#container");
-    } else {
-      document.getElementById('tip').style.display = 'block';
+    function Check_AdobeReader() {
+      var displayString;
+      var acrobat = new Object();
+      acrobat.installed = false;
+      acrobat.version = "0.0";
+
+      if (navigator.plugins && navigator.plugins.length) {
+          for (x = 0; x < navigator.plugins.length; x++) {
+              if (navigator.plugins[x].description.indexOf("Adobe Acrobat") != -1) {
+                  acrobat.version = parseFloat(navigator.plugins[x].description.split("Version ")[1]);
+                  if (acrobat.version.toString().length == 1) acrobat.version += ".0";
+                  acrobat.installed = true;
+                  displayString = "Acrobat Version: " + acrobat.version;
+                  break;
+              } else if (navigator.plugins[x].description.indexOf("Adobe PDF Plug-In") != -1) {
+                  acrobat.installed = true;
+                  acrobat.version = "8+";
+                  displayString = "Acrobat Version 8 or Above";
+              }
+          }
+      } else if (window.ActiveXObject) {
+          for (x = 2; x < 10; x++) {
+              try {
+                  oAcro = eval("new ActiveXObject('PDF.PdfCtrl." + x + "');");
+                  if (oAcro) {
+                      acrobat.installed = true;
+
+                      acrobat.version = x + ".0";
+                      displayString = "Acrobat Version: " + acrobat.version;
+                  }
+              }
+              catch (e) { }
+          }
+
+          try {
+              oAcro4 = new ActiveXObject("PDF.PdfCtrl.1");
+              if (oAcro4) {
+                  acrobat.installed = true;
+                  acrobat.version = '4.0';
+                  displayString = 'Acrobat Version: ' + acrobat.version;
+              }
+          }
+          catch (e) { }
+
+          try {
+              oAcro7 = new ActiveXObject('AcroPDF.PDF.1');
+              if (oAcro7) {
+                  acrobat.installed = true;
+                  acrobat.version = '7.0';
+                  displayString = 'Acrobat Version: ' + acrobat.version;
+              }
+          }
+          catch (e) { }
+      }
+
+      return acrobat;
+    }
+  </script>
+  <script>
+    if($.browser.msie && parseInt($.browser.version) < 9){
+      var reader = Check_AdobeReader();
+      if(reader.installed){
+        $('#pdfiframe').show().attr('src', 'http://static.tangsj.com/pdfobject_test/size.pdf');
+      }else{
+        document.getElementById('tip').style.display = 'block';
+      }
+    }else{
+      if(PDFObject.supportsPDFs){
+         PDFObject.embed("size.pdf", "#container");
+      } else {
+        document.getElementById('tip').style.display = 'block';
+      }
     }
   </script>
 </body>

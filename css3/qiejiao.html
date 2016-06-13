@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>切角</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box {
+      background: #58a;
+      background: linear-gradient(135deg, transparent 15px, #58a 0) top left,
+                  linear-gradient(-135deg, transparent 15px, #58a 0) top right,
+                  linear-gradient(45deg, transparent 15px, #58a 0) bottom left,
+                  linear-gradient(-45deg, transparent 15px, #58a 0) bottom right;
+      width: 200px;
+      height: 200px;
+      background-repeat: no-repeat;
+      background-size: 50% 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>

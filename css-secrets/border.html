@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Border</title>
+  <link rel="stylesheet" href="lib.css">
+  <style>
+    body{ background-color: #000;  }
+    .box {
+      width: 300px;
+      height: 200px;
+      background-color: #FFF;
+      margin: 0 30px;
+    }
+
+    .box1{
+      border: 10px solid rgba(255, 255, 255, 0.3);
+      background-clip: padding-box;
+    }
+
+    .box2{
+      box-shadow: 0 0 0 20px red, 0 0 0 30px blue;
+    }
+
+    .box3{
+      background: tan;
+      border-radius: 0.8em;
+      padding: 1em;
+      box-shadow: 0 0 0 0.6em #655;
+      outline: 0.6em solid #655;
+    }
+
+    .box4{
+      background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0);
+      background-size: 30px 30px;
+    }
+
+    .box5{
+      background: repeating-linear-gradient(45deg, #fb3 0, #fb3 15px, #58a 0, #58a 30px);
+    }
+  </style>
+</head>
+<body>
+  <div class="box box1"></div>
+  <div class="box box2" onclick="alert('click')">
+    boxshadow 元素外是不会响应鼠标事件的
+  </div>
+  <div class="box box3"></div>
+  <div class="box box4"></div>
+  <div class="box box5"></div>
+</body>
+</html>
