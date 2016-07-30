@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Howler</title>
+</head>
+<body>
+  <script src="js/howler.min.js"></script>
+  <script>
+    var sound = new Howl({
+      src: ['audio1.mp3'],
+      loop: true,
+      rate: 1.0,
+      sprite: {
+        blast: [0, 1000],
+        laser: [2000, 3000],
+        winner: [4000, 7500]
+      }
+    });
+
+    var id1 = sound.play('blast');
+    var id2 = sound.play('laser');
+    var id3 = sound.play('winner');
+  </script>
+</body>
+</html>

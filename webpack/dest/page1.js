@@ -1,1 +1,0 @@
-webpackJsonp([0],[function(e,n,r){var t=r(1);r(5),document.write("page1 write!!<br/>"+t())}]);

@@ -1,12 +1,17 @@
 var path = require('path');
 var webpack = require('webpack');
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    page1: './src/page1.js',
-    page2: './src/page2.js'
+    app: ['webpack/hot/dev-server', './src/app.js']
+  },
+  devServer: {
+    hot: true,
+    stats: { colors: true },
+    historyApiFallback: true,
+    progress: true
   },
   output: {
     path: path.join(__dirname, 'dest'),
@@ -25,11 +30,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new CommonsChunkPlugin('common.js'), // 提取公用模块 为独立文件
-    new ExtractTextPlugin('main.css', {  // 样式打包文件
-      allChunks: true
-    }),
-    new webpack.optimize.UglifyJsPlugin() // 代码压缩
-    //new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      inject: 'body',
+      template: 'src/index.html',
+      chunks: ['app']
+    })
   ]
 }

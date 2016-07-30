@@ -1,10 +1,10 @@
 {
-  "name": "webpack-1",
+  "name": "webpack_learning",
   "version": "1.0.0",
   "description": "webpack learning",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --config webpack.config.js",
+    "build": "webpack"
   },
   "author": "tangsj",
   "license": "MIT",
@@ -12,8 +12,7 @@
     "css-loader": "^0.21.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.5",
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.6",
+    "html-webpack-plugin": "^2.21.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.1",

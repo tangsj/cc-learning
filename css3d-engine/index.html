@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>css3d-engine</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <style>
+    #tip{
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="main"></div>
+
+  <div id="tip"></div>
+  <script src="css3d.js"></script>
+  <script src="orienter.js"></script>
+  <script src="jstween.js"></script>
+  <script>
+
+    var points = []; //结果
+    /*
+    * 求圆周上等分点的坐标
+    * ox,oy为圆心坐标
+    * r为半径
+    * count为等分个数
+    */
+    function getPoint(r, ox, oy, count){
+        var radians = (Math.PI / 180) * Math.round(360 / count), //弧度
+            i = 0;
+        for(; i < count; i++){
+            var x = ox + r * Math.sin(radians * i),
+                y = oy + r * Math.cos(radians * i);
+
+            points.unshift({x:x,y:y}); //为保持数据顺时针
+        }
+    }
+
+    // 获取 20个坐标点
+    getPoint(100, window.innerWidth / 2, window.innerHeight / 2, 20);
+
+
+    var tip = document.querySelector('#tip');
+
+    // 创建场景
+    var stage = new C3D.Stage();
+    stage.size(window.innerWidth, window.innerHeight).update();
+    document.querySelector('#main').appendChild(stage.el);
+
+    var sprite = new C3D.Sprite();
+    sprite.name('sprite').position(0, 0, -stage.fov).update();
+    stage.addChild(sprite);
+
+    var planes = [];
+    for(var i = 0; i < points.length; i++){
+      var point = points[i];
+
+      var plane = new C3D.Plane();
+      plane.name('m'+i)
+           .size(129, 1170, 0)
+           .rotation(0, 0, 0)
+           .position(0, 0, 0)
+           .material({
+            image: 'images/pics/' + (i+1) + '.png'
+           }).update();
+      sprite.addChild(plane);
+      planes.push(plane);
+    }
+
+
+    // sprite.rotation(-80, 0, 0).updateT();
+
+    //响应屏幕调整尺寸
+    function resize() {
+        stage.size(window.innerWidth, window.innerHeight).update();
+    };
+    window.onresize = function() {
+        resize();
+    };
+    resize();
+
+
+    //刷新场景
+    requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
+    function(callback) {
+        setTimeout(callback, 1000 / 60);
+    };
+
+
+    function go(){
+      // sprite.rotate(0,0.5,0).updateT();
+      // stage.camera.rotate(0.1, 0.3, 0).updateT();
+      requestAnimationFrame(go);
+    }
+    requestAnimationFrame(go);
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>requestAnimationFrame</title>
+
+  <style>
+    *{ padding: 0; margin: 0; box-sizing: border-box;  }
+    html, body{ height: 100%;  }
+    .stage{ display: flex; width: 100%; height: 100%; flex-wrap: wrap; border: 1px solid red; }
+    .box{ width: 33.33333%; height: 33.33333%; text-align: center; display: flex; align-items: center; justify-content: center; border: 1px solid red;}
+    .box.active{ background-color: rgba(255, 0, 0, 0.4); color: #FFF;  }
+    .box:nth-child(5){ background-color: black; color: #FFF;  cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="box"><span>1</span></div>
+    <div class="box"><span>2</span></div>
+    <div class="box"><span>3</span></div>
+    <div class="box"><span>8</span></div>
+    <div class="box"><span>开始</span></div>
+    <div class="box"><span>4</span></div>
+    <div class="box"><span>7</span></div>
+    <div class="box"><span>6</span></div>
+    <div class="box"><span>5</span></div>
+  </div>
+  <script>
+    console.time('runtime');
+    var requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(callback){
+      setTimeout(callback, 1000 / 60);
+    }
+
+    var boxs = document.querySelectorAll('.box');
+
+    // 当前奖品ID
+    var price = 4;
+
+    // 奖品顺序
+    var queue = [0, 1, 2, 5, 8, 7, 6, 3];
+    // 当前高亮下标
+    var qi = 0;
+    // 渲染高亮次数
+    var i = 0;
+    // 总的需要渲染高亮次数
+    var num = queue.length * 20 + price;
+    // 最后一次渲染时间
+    var updateTime = 0;
+    // 最近一次渲染累加时间
+    var current = 0;
+    // 最近一次渲染需要达到的时间
+    var total = 100; // 毫秒
+    // 渲染
+    function render(){
+      // boxs.forEach(function(item, index){
+      //   item.className = 'box';
+      // });
+
+      for(var k = 0; k < boxs.length; k++){
+        boxs[k].className = 'box';
+      }
+
+      if(qi == queue.length){
+        qi = 0;
+      }
+      boxs[queue[qi]].className = 'box active';
+      qi++;
+      i++;
+
+      // 控制渲染最大时间
+      if(i < num * 0.5){ //加速
+        total -= 5;
+      }else{ // 减速
+        total += 6; 
+      }
+    }
+
+    function loop(){
+      // 判断是否达到总渲染次数
+      if(i < num){
+        mreq = requestAnimationFrame(loop);
+      }else{
+        console.log('中奖了');
+        cancelAnimationFrame(mreq);
+        return false;
+      }
+
+      var diff = Date.now() - updateTime;
+      if(current > total){
+        current = 0;
+        render();
+      }else{
+        current += diff;
+      }
+      console.log(current, total);
+      updateTime = Date.now();
+    }
+    mreq = requestAnimationFrame(loop);
+    console.timeEnd('runtime');
+  </script>
+</body>
+</html>
