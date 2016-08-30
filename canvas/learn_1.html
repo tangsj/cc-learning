@@ -5,10 +5,19 @@
   <title>Learn 1</title>
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <script src="https://cdn.ravenjs.com/3.4.0/raven.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
   <canvas id="stage" width="500" height="500"></canvas>
   <script>
+    // Raven.config('https://48d221d31ca94c609e9f33938c94bf7d@app.getsentry.com/91610').install()
+    // try {
+    //   JSON.parse('{');
+    // } catch(e) {
+    //     Raven.captureException(e);
+    // }
+
     window.onload = function () {
       var canvas = document.querySelector('#stage');
       var context = canvas.getContext('2d');

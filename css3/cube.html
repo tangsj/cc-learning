@@ -22,13 +22,19 @@
       height: 200px;
       position: relative;
       /* perspective-origin: 100% 50%; */
-      perspective: 400px;
+      perspective: 900px;
     }
     .stage .cube{
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
       /* animation: cube 10s linear infinite; */
+      transform:  rotateY(0deg);
+      transition:  transform 1s linear;
+    }
+
+    .stage .cube:hover{
+      transform: rotateY(-90deg);
     }
 
     @keyframes cube{

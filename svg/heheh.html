@@ -1,0 +1,57 @@
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Document</title>
+  <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+  <script src="svgtool.js"></script>
+<style>
+    .path{
+      stroke-dasharray: 11506.74053955078125px;
+      stroke-dashoffset: 11506.74053955078125;
+      animation: dash 2s linear infinite;
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       width="410px" height="264px" viewBox="0 0 2657.74 1721.34" enable-background="new 0 0 2657.74 1721.34"
+       xml:space="preserve">
+    <!-- <g>
+      <defs>
+        <rect id="SVGID_1_" y="-0.001" width="2657.743" height="1721.341"/>
+      </defs>
+      <clipPath id="SVGID_2_">
+        <use xlink:href="#SVGID_1_"  overflow="visible"/>
+      </clipPath>
+      <polygon clip-path="url(#SVGID_2_)" fill="none" stroke="#040000" stroke-width="14" stroke-miterlimit="10" points="
+        1696.306,480.339 1328.356,11.34 960.407,480.34  "/>
+    </g> -->
+    <polygon class="path" fill="none" stroke="#040000" stroke-width="14" stroke-miterlimit="10" points="2310.91,1287.34 345.804,1287.34 
+      636.809,915.055 2025.04,914.893 "/>
+   <!--  <polygon fill="none" stroke="#040000" stroke-width="14" stroke-miterlimit="10" points="939.225,519.34 1717.488,519.34 
+      2002.599,875.751 660.817,874.208 "/>
+    <g>
+      <defs>
+        <rect id="SVGID_3_" y="-0.001" width="2657.743" height="1721.341"/>
+      </defs>
+      <clipPath id="SVGID_4_">
+        <use xlink:href="#SVGID_3_"  overflow="visible"/>
+      </clipPath>
+      <polygon clip-path="url(#SVGID_4_)" fill="none" stroke="#040000" stroke-width="14" stroke-miterlimit="10" points="
+        2336.182,1326.945 320.533,1326.945 14.452,1714.34 2643.262,1714.34  "/>
+    </g> -->
+  </svg>
+
+
+  <script>
+    var el = $('.path')
+    var len = tools.getPolygonLength(el);
+    console.log(len);
+  </script>
+</body>
+</html>
