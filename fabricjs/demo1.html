@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>demo1</title>
+  <!-- <script src="js/fabric.min.js"></script> -->
+  <script src="http://fabricjs.com/lib/fabric_with_gestures.js"></script>
+</head>
+<body>
+  <canvas id="c" width="600" height="500" class="lower-canvas"></canvas>
+  <script>
+    var canvas = new fabric.Canvas('c');
+    fabric.Image.fromURL('images/lf.jpg', function(img) {
+      img.scale(0.5).set({
+        left: 150,
+        top: 150,
+        angle: -15
+      });
+      canvas.add(img).setActiveObject(img);
+    });
+
+    var info = document.getElementById('info');
+
+    canvas.on({
+      'touch:gesture': function() {
+        var text = document.createTextNode(' Gesture ');
+        document.body.appendChild(text);
+      },
+      'touch:drag': function() {
+        var text = document.createTextNode(' Dragging ');
+        document.body.appendChild(text);
+      },
+      'touch:orientation': function() {
+        var text = document.createTextNode(' Orientation ');
+        document.body.appendChild(text);
+      },
+      'touch:shake': function() {
+        var text = document.createTextNode(' Shaking ');
+        document.body.appendChild(text);
+      },
+      'touch:longpress': function() {
+        var text = document.createTextNode(' Longpress ');
+        document.body.appendChild(text);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+@charset 'utf-8';
+*{ box-sizing: border-box; }
+
+html, body, .wrapper{ height: 100%; }
+.hide{
+  display: none;
+}
+.wrapper{
+  padding-bottom: 50px;
+}
+
+.inputBox{
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  adding-right: 20%;
+}
+
+.entername input,
+.inputBox input{
+  width: 80%;
+  height: 100%;
+  outline: none;
+  border: 1px solid #999;
+  border-radius: 0;
+}
+.entername button,
+.inputBox button{
+  width: 20%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background-color: #2db7f5;
+}
+
+.messageBox{
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+.entername{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #FFF;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.entername button,
+.entername input{
+  height: 40px;
+}
+
+.entername button{ position: static; }
+

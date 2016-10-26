@@ -1,0 +1,88 @@
+body {
+  background: #000
+}
+*{
+  box-sizing: border-box;
+}
+
+.loader{
+  width: 60px;
+  height: 60px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.loader i{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.loader i:after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -1px;
+  width: 2px;
+  height: 14px;
+  background-color: #FFF;
+}
+.loader i:nth-child(1) {
+  transform: rotate(0deg);
+  animation: fade-loader 0.55s infinite alternate;
+}
+.loader i:nth-child(2) {
+  transform: rotate(30deg);
+  animation: fade-loader 0.55s infinite alternate 0.05s;
+}
+.loader i:nth-child(3) {
+  transform: rotate(60deg);
+  animation: fade-loader 0.55s infinite alternate 0.1s;
+}
+.loader i:nth-child(4) {
+  transform: rotate(90deg);
+  animation: fade-loader 0.55s infinite alternate 0.15s;
+}
+.loader i:nth-child(5) {
+  transform: rotate(120deg);
+  animation: fade-loader 0.55s infinite alternate 0.2s;
+}
+.loader i:nth-child(6) {
+  transform: rotate(150deg);
+  animation: fade-loader 0.55s infinite alternate 0.25s;
+}
+.loader i:nth-child(7) {
+  transform: rotate(180deg);
+  animation: fade-loader 0.55s infinite alternate 0.3s;
+}
+.loader i:nth-child(8) {
+  transform: rotate(210deg);
+  animation: fade-loader 0.55s infinite alternate 0.35s;
+}
+.loader i:nth-child(9) {
+  transform: rotate(240deg);
+  animation: fade-loader 0.55s infinite alternate 0.4s;
+}
+.loader i:nth-child(10) {
+  transform: rotate(270deg);
+  animation: fade-loader 0.55s infinite alternate 0.45s;
+}
+.loader i:nth-child(11) {
+  transform: rotate(300deg);
+  animation: fade-loader 0.55s infinite alternate 0.5s;
+}
+.loader i:nth-child(12) {
+  transform: rotate(330deg);
+  animation: fade-loader 0.55s infinite alternate 0.55s;
+}
+
+@keyframes fade-loader {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

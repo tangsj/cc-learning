@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link href="//cdn.bootcss.com/normalize/4.2.0/normalize.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="main.css">
+  <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/socket.io/1.4.8/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="wrapper hide">
+    <div class="messageBox">
+      
+    </div>
+    <div class="inputBox">
+      <input type="text" name="text" />
+      <button class="send">发送</button>
+    </div>
+  </div>
+
+
+  <div class="entername">
+    <input type="text" placeholder="输入你的大名" name="uname" value="codeook"/>
+    <button>开始</button>
+  </div>
+  <script>
+    window.uname = '';
+    window.unum = 0;
+
+    $(function(){
+      var $wrapper = $('.wrapper');
+      var $entername = $('.entername');
+      var $messageBox = $('.messageBox');
+
+      var $uname = $('[name=uname]', $entername);
+      var $text = $('[name=text]', $wrapper);
+
+      var socket;
+
+      function connectToServer(){
+        socket = io.connect('ws://192.168.1.110:3000');
+        socket.on('connect', function(){
+          console.log('server connet success');
+          // 发送用户名到服务器
+          socket.emit('add user', window.uname);
+        });
+
+        // 接口用户在服务器上的ID标识
+        socket.on('user num', function(data){
+          window.unum = data.num;
+        });
+
+        // 有人进入
+        socket.on('user join', function(data){
+          $messageBox.append( data.name + '进入房间！！');
+        });
+
+        // 接收服务器消息
+        socket.on('rmsg', function(data){
+          $messageBox.append('<p>'+ data.name +':'+ data.text +'</p>');
+        });
+      }
+
+
+      $entername.on('click', 'button', function(){
+        var $this = $(this);
+
+        var uname = $.trim($uname.val());
+        if(uname.length == 0){
+          alert('输入名字啊，没看到么～～');
+          return false;
+        }
+
+        window.uname = uname;
+
+        $entername.hide();
+        $wrapper.show();
+
+        connectToServer();
+      });
+
+
+      $wrapper.on('click', '.inputBox button', function(){
+        var $this = $(this);
+
+        var text = $.trim($text.val());
+        if(text.length == 0){
+          $text.focus();
+          return false;
+        }
+
+        $text.val('');
+        $messageBox.append('<p>'+ window.uname +':'+ text +'</p>');
+        socket.emit('rmsg', text);
+      });
+
+      // $entername.find('button').trigger('click');
+    });
+  </script>
+</body>
+</html>
