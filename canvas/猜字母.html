@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>猜字母</title>
+</head>
+<body>
+  <canvas id="stage" width="600" height="400"></canvas>
+  <button id="export">Export Image</button>
+  <br />
+  <script>
+    window.onload = function() {
+      var stage = document.querySelector('#stage');
+      var context = stage.getContext('2d');
+      var exportBtn = document.querySelector('#export');
+
+      var guesses = 0; // 按键次数
+      var message = "Guess The Letter From a (lower) to z (higher)";
+      var letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+      var today = new Date();
+      var letterToGuess = ''; // 当前被猜的字母
+      var higherOrLower = '';
+      var letterGuessed = [];
+      var gameOver = false;
+
+      function initGame() {
+        var letterIndex = Math.floor(Math.random() * letters.length);
+        letterToGuess = letters[letterIndex];
+        console.log(letterToGuess);
+        guesses = 0;
+        letterGuessed = [];
+        gameOver = false;
+        window.addEventListener('keydown', eventKeyPressed, true);
+        exportBtn.addEventListener('click', createImageData, true);
+        drawScreen();
+      }
+
+      function createImageData() {
+        var img = new Image();
+        img.width = 100;
+        img.src = stage.toDataURL();
+
+        document.body.appendChild(img);
+      }
+
+      function eventKeyPressed(e) {
+        var letterPressed = String.fromCharCode(e.keyCode).toLowerCase();
+        guesses++;
+        letterGuessed.push(letterPressed);
+
+        if (letterPressed === letterToGuess) {
+          gameOver = true;
+        } else {
+          var letterIndex = letters.indexOf(letterToGuess);
+          var guessIndex = letters.indexOf(letterPressed);
+
+
+          if (guessIndex == -1) {
+            higherOrLower = 'That is not a letter';
+          } else if(guessIndex > letterIndex) {
+            higherOrLower = 'Lower';
+          } else {
+            higherOrLower = 'Higher';
+          }
+        }
+
+        drawScreen();
+      }
+
+      function drawScreen() {
+        // 背景
+        context.fillStyle = '#ffffaa';
+        context.fillRect(0, 0, 600, 400);
+        // 边框
+        context.strokeStyle = '#0000000';
+        context.strokeRect(5, 5, 590, 390);
+
+        context.textBaseline = 'top';
+
+        // 日期
+        context.fillStyle = '#000000';
+        context.font = '10px Sans-Serif';
+        context.fillText(today, 150, 10);
+
+        // 消息
+        context.fillStyle = '#ff0000';
+        context.font = '14px Sans-Serif';
+        context.fillText(message, 125, 30);
+
+        // 猜测次数
+        context.fillStyle = '#109910';
+        context.font = '16px Sans-Serif';
+        context.fillText('Guesses: ' + guesses, 215, 50);
+
+        // 显示 Higher或Lower
+        context.fillStyle = '#000000';
+        context.font = '16px Sans-Serif';
+        context.fillText('Higher Or Lower: ' + higherOrLower, 150, 125);
+
+        context.fillStyle = '#000000';
+        context.font = '16px Sans-Serif';
+        context.fillText('已猜字母：' + letterGuessed.toString(), 10, 260);
+
+        if (gameOver) {
+          context.fillStyle = '#ff0000';
+          context.font = '80px Sans-Serif';
+          context.fillText('猜中了', 150, 180);
+        }
+      }
+
+      initGame();
+    }
+  </script>
+</body>
+</html>
