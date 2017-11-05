@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Three</title>
+  <style>
+    body{
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+  <script src="three.min.js"></script>
+</head>
+<body>
+  <div id="webgl-output"></div>
+  <script>
+    window.onload = function(){
+      var scene = new THREE.Scene(); // 场景
+      var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000); // 远景相机
+
+      var renderer = new THREE.WebGLRenderer(); // 渲染器
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      renderer.setClearColor(new THREE.Color( 0xeeeeee ));
+
+      var axes = new THREE.AxisHelper(90); // 轴辅助
+      scene.add(axes);
+
+      var planeGeometry = new THREE.PlaneGeometry(60, 20);
+      var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+
+      var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      
+      plane.rotation.x = 0;
+      plane.position.set(0, 0, 0);
+
+      scene.add(plane);
+
+      camera.position.set(10, 20,100)
+      camera.lookAt(scene.position);
+      
+      function tick(){
+        plane.rotation.x += 0.1;
+        plane.rotation.y += 0.1;
+        renderer.render(scene, camera); 
+        requestAnimationFrame(tick);
+      }
+      document.querySelector('#webgl-output').appendChild( renderer.domElement );
+      requestAnimationFrame(tick)
+    }
+  </script>
+</body>
+</html>

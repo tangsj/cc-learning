@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .draggable{
+      width: 100px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border: 1px solid blue;
+    }
+    .dropbox{
+      width: 100%;
+      height: 200px;
+      border: 1px solid red;
+      line-height: 200px;
+      text-align: center;
+      font-size: 30px;
+      color: #e7e7e7;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="draggable" id="aa" draggable="true">
+    draggable
+  </div>
+
+  <div class="dropbox">
+    dropbox
+  </div>
+
+  <script>
+    window.onload = function(){
+      var dragEl = document.querySelector('.draggable');
+      var dropEl = document.querySelector('.dropbox');
+
+      dragEl.addEventListener('dragstart', function(e){
+        // console.log('dragstart', e.target);
+        e.dataTransfer.setData('el', e.target.id);
+      });
+      dragEl.addEventListener('drag', function(e){
+        // console.log('drag', e);
+      });
+      dragEl.addEventListener('dragend', function(e){
+        console.log('dragend', e);
+      });
+
+      /******************************************/
+      dropEl.addEventListener('drop', function(e){
+        e.preventDefault();
+        let id = e.dataTransfer.getData('el');
+        e.target.appendChild(document.getElementById(id));
+        // console.log('drop', e);
+        // let files = e.dataTransfer.files;
+        // console.log(files);
+      });
+      dropEl.addEventListener('dragenter', function(){
+        console.log('dragenter');
+      });
+      dropEl.addEventListener('dragover', function(e){
+        e.preventDefault(); // 在dragover事件中使用event.preventDefault();阻止默认事件，才能触发drop事件
+      });
+    }
+  </script>
+</body>
+</html>

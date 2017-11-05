@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Path animate</title>
+  <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+  <style>
+    *{ box-sizing: border-box; margin: 0; padding: 0;  }
+    .car{
+      width: 68px;
+      height: 35px;
+      background: url(ltcar.png) no-repeat;
+      position: absolute;
+      top:  0;
+      left:  0;
+      transition: transform 1s linear;
+    }
+
+    .map{
+      position: relative;
+      border:  1px solid red;
+      width: 600px;
+      height:  600px;
+    }
+    .map i{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: red;
+      color: #FFF;
+      text-align: center;
+      line-height: 20px;
+      font-style: normal;
+      font-size: 12px;
+    }
+    .map .line1{
+      height: 1px;
+      background-color: red;
+      width: 100%;
+      position: absolute;
+      top:  50%;
+      left:  0;
+    }
+    .map .line2{
+      width: 1px;
+      background-color: red;
+      height: 100%;
+      position: absolute;
+      left:  50%;
+      top:  0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="car"></div>
+  <div class="map">
+    <div class="line1"></div>
+    <div class="line2"></div>
+  </div>
+  <script>
+    $(function(){
+
+      var $map = $('.map');
+      var $car = $('.car');
+
+      var carw = 68, carh = 25;
+
+      var points = [
+        [300, 300],
+        [450, 450],
+        [250, 650],
+        [450, 150],
+        [150, 150]
+      ];
+
+      var _pHtml = [];
+      points.forEach(function(p,i){
+        var $i = $('<i>'+ i +'</i>');
+        $i.css({
+          left: points[i][0] - 10,
+          top: points[i][1] - 10,
+        });
+        _pHtml.push($i);
+      });
+
+      $map.append(_pHtml);
+
+
+      var pEG = 0; pIndex = 0;
+
+      function go(i, re){
+        var p = points[i];
+        var np;
+
+        if(re){
+          np = points[i - 1];
+        }else{
+          np = points[i + 1];
+        }
+
+        if(i >= points.length - 1 ){
+          np = points[0];
+        }else if( i == 0 ){
+          np = points[1];
+        }
+
+        var tsl = (p[0] - carw / 2) +'px,'+ (p[1] - carh / 2);
+
+        // 位移到指定点
+        $car.css({ transform: 'translate('+ tsl +'px) rotate('+ pEG +'deg)' });
+        // 计算与下一点的角度
+        var tan = (np[1] - p[1]) / (np[0] - p[0]);
+
+        var eg = Math.abs( Math.atan(tan) * 180 / Math.PI );
+
+        console.log(np, p);
+
+        // 象限判定
+        if(np[0] >= p[0] && np[1] <= p[1]){
+          // 1象限
+          console.log('1象限');
+          eg = -eg;
+        }else if(np[0] >= p[0] && np[1] > p[1]){
+          // 2象限
+          console.log('2象限');
+          eg = Math.abs(eg);
+        }else if(np[0] < p[0] && np[1] >= p[1]){
+          // 3象限
+          console.log('3象限');
+          eg = 180 - eg;
+        }else{
+          // 4象限
+          console.log('4象限');
+          eg = -180-eg;
+        }
+
+        pEG = eg;
+
+        setTimeout(function(){
+          $car.css({ transform: 'translate('+ tsl +'px) rotate('+ eg +'deg)' });
+        }, 1200);
+      }
+
+      window.go = go;
+
+      go(pIndex);
+
+    });
+  </script>
+</body>
+</html>
