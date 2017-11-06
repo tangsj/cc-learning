@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>绘图</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    window.onload = function() {
+      var wwidth = window.innerWidth;
+      var wheight = window.innerHeight;
+
+      var stage = document.createElement('canvas');
+      stage.width = wwidth;
+      stage.height = wheight;
+      var context = stage.getContext('2d');
+
+      document.body.appendChild(stage);
+    
+      function drawScreen() {
+        // 背景
+        context.fillStyle = '#ffffaa';
+        context.strokeStyle = '#ff0000';
+        context.fillRect(0, 0, wwidth, wheight);
+        context.clearRect(10, 10, 100, 100);
+        context.globalAlpha = 0.5;
+        context.strokeRect(110, 10, 100, 100);
+
+        context.lineWidth = 30;
+        context.lineCap = 'round';
+        context.globalAlpha = 1;
+        context.beginPath();
+        context.moveTo(50, 300);
+        context.lineTo(500, 300);
+        context.stroke();
+        context.closePath();
+
+        context.beginPath();
+        context.strokeStyle = '#000000';
+        context.lineCap = 'square';
+        context.lineJoin = 'round'
+        context.moveTo(50, 350);
+        context.lineTo(500, 350);
+        context.lineTo(500, 400);
+        context.stroke();
+        context.closePath();
+      }
+
+      drawScreen();
+    }
+  </script>
+</body>
+</html>
