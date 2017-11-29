@@ -5,6 +5,6 @@ const BrowserWindow = electron.BrowserWindow;
 var window = null;
 
 app.on('ready', function() {
-  window = new BrowserWindow({width: 800, height: 600});
-  window.loadURL('https://www.w3cschool.cn');
+  window = new BrowserWindow({width: 1024, height: 600});
+  window.loadURL('https://www.hjlapp.com/admin');
 });

@@ -2,9 +2,10 @@
   "name": "demo1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "electron .",
+    "packager": "electron-packager . hjl_admin --all --out ../out --electron-version=1.4.13"
   },
   "author": "",
   "license": "ISC"
