@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CurveTo</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="stage" width="1242" height="270"></canvas>
+
+<script src="http://localhost:8001/createjs/EaselJS/lib/easeljs.min.js"></script>
+
+<script>
+    window.onload = function() {
+        var oldPt, oldMidPt, drawingCanvas;
+
+        var canvas = document.querySelector('#stage');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var stage = new createjs.Stage(canvas);
+        createjs.Touch.enable(stage);
+        stage.enableMouseOver();
+
+        drawingCanvas = new createjs.Shape();
+
+        stage.addEventListener('stagemousedown', handleMouseDown);
+        stage.addEventListener('stagemouseup', handleMouseUp);
+
+        stage.addChild(drawingCanvas);
+
+        function handleMouseDown() {
+            oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
+            oldMidPt = oldPt.clone();
+            stage.addEventListener('stagemousemove', handleMouseMove);
+        }
+
+        function handleMouseUp() {
+            stage.removeEventListener('stagemousemove', handleMouseMove);
+        }
+
+        function handleMouseMove() {
+            var midPt = new createjs.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
+
+            drawingCanvas.graphics.setStrokeStyle(40, 'round', 'round')
+                .beginStroke('red').moveTo(midPt.x, midPt.y)
+                .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+
+            oldPt.x = stage.mouseX;
+            oldPt.y = stage.mouseY;
+
+            oldMidPt.x = midPt.x;
+            oldMidPt.y = midPt.y;
+
+            stage.update();
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Learn 1</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <style lang="">
+    canvas{
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    window.onload = function () {
+      var canvas = document.createElement('canvas');
+      canvas.width = 500;
+      canvas.height = 500;
+      document.body.insertBefore(canvas, document.body.childNodes[0]);
+
+      var context = canvas.getContext('2d');
+
+      var rad = Math.PI / 180;
+
+      var x = 100;
+      var y = 100;
+      var width = 50;
+      var height = 50;
+
+      // context.fillStyle = 'black';
+      // context.fillRect(20, 20, 25, 25);
+
+      // context.translate(x + 0.5*width, y + 0.5*height);
+      // context.rotate(45 * rad);
+
+      // context.fillStyle = 'red';
+      // context.fillRect(-0.5 * width, -0.5 * height, width, height);
+      
+      // context.translate(x + 0.5 * width, y + 0.5 * height);
+      // context.scale(2,2);
+      // context.rotate(45*rad);
+      // context.fillStyle = 'red';
+      // context.fillRect(-0.5 * width, -0.5 * height, width, height);
+
+      var colorStops = [
+        { color: '#FF0000', stopPercent: 0 },
+        { color: '#FFFF00', stopPercent: 0.125 },
+        { color: '#00FF00', stopPercent: 0.375 },
+        { color: '#0000FF', stopPercent: 0.625 },
+        { color: '#FF00FF', stopPercent: 0.875 },
+        { color: '#FF0000', stopPercent: 1 },
+      ];
+
+      var cx = 0;
+      function draw() {
+        context.clearRect(0, 0, canvas.width, 280);
+        context.globalAlpha = 1;
+        var gr = context.createLinearGradient(cx, 0, 200 + cx, 0);
+        colorStops.forEach(function(item, index) {
+          gr.addColorStop(item.stopPercent, item.color);
+
+          item.stopPercent += 0.01;
+          if (item.stopPercent > 1) {
+            item.stopPercent = 0;
+          }
+          colorStops[index] = item;
+        });
+
+        context.fillStyle = gr;
+        context.fillRect(cx, 0, 200, 200);
+        
+        context.font = "40px serif";
+        context.textBaseline = 'middle';
+        context.textAlign = 'left';
+        context.fillText('CodeCook', cx, 250);
+        requestAnimationFrame(draw);
+
+        cx += 3;
+
+        if (cx + 200 > canvas.width) {
+          cx = 0;
+        }
+      }
+      requestAnimationFrame(draw);
+
+      var img = new Image();
+      img.onload = function() {
+        var pattern = context.createPattern(img, 'no-repeat');
+        context.fillStyle = pattern;
+        context.font = "80px serif";
+        context.globalAlpha = 1;
+        context.fillText('CodeCook', 0, 320);
+        context.drawImage(img, 130, 310, 340, 300, 0, 380, 100, 100);
+
+        var imageData = context.getImageData(0, 380, 100, 100);
+        console.log(imageData);
+        for(var i = 0; i < imageData.data.length; i+=4) {
+          imageData.data[i] += 100;
+          imageData.data[i+1] += 50;
+          imageData.data[i+2] += 100;
+        }
+        context.clearRect(0, 380, 100, 100);
+        context.putImageData(imageData, 0, 380);
+      }
+      img.src = "img.jpg";
+    }
+
+  </script>
+</body>
+
+</html>

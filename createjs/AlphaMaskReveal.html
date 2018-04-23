@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AlphaMaskReveal</title>
+</head>
+<body>
+  <canvas id="stage" width="1242" height="270"></canvas>
+
+  <script src="http://localhost:8001/createjs/EaselJS/lib/easeljs.min.js"></script>
+  <script>
+    window.onload = function() {
+      var canvas = document.querySelector('#stage');
+      var stage = new createjs.Stage(canvas);
+      createjs.Touch.enable(stage);
+      stage.enableMouseOver();
+
+      var img = new Image();
+      img.onload = function() {
+
+        // http://www.ajexoop.com/wordpress/2016/11/%E5%85%B3%E4%BA%8Egraphics%E7%9A%84bug%EF%BC%88%E9%99%84%E5%88%AE%E5%88%AE%E5%8D%A1demo%EF%BC%89.html
+
+        // var box = new createjs.Shape();
+        // box.graphics.beginLinearGradientFill(["#000000", "rgba(0, 0, 0, 0)"], [0, 1], 0, 0, img.width, img.height)
+        // box.graphics.drawRect(0, 0, img.width, img.height);
+        // box.cache(0, 0, img.width, img.height);
+
+        // var bmp = new createjs.Bitmap(img);
+        // bmp.filters = [
+        //   new createjs.AlphaMaskFilter(box.cacheCanvas)
+        // ];
+        // bmp.cache(0, 0, img.width, img.height);
+
+        var drawingCanvas = new createjs.Shape();
+        drawingCanvas.cache(0, 0, img.width, img.height);
+        
+        var image = new createjs.Bitmap(img);
+        var maskFilter = new createjs.AlphaMaskFilter(drawingCanvas.cacheCanvas);
+        image.filters = [maskFilter];
+        image.cache(0, 0, img.width, img.height);
+
+        var blur = new createjs.Bitmap(img);
+        blur.filters = [new createjs.BlurFilter(24, 24, 2), new createjs.ColorMatrixFilter(new createjs.ColorMatrix(20))];
+        blur.cache(0, 0, img.width, img.height);
+
+        var cursor = new createjs.Shape(new createjs.Graphics().beginFill("#FFFFFF").drawCircle(100, 100, 25));
+        cursor.cursor = 'pointer';
+
+
+        stage.addChild(blur, cursor, image);
+        stage.update();
+      }
+
+      img.src = './img.jpg';
+
+      stage.update();
+    }
+  </script>
+</body>
+</html>

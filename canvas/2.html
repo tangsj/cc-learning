@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Learn 1</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <style lang="">
+    canvas {
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    window.onload = function () {
+      var canvas = document.createElement('canvas');
+      canvas.width = 500;
+      canvas.height = 500;
+      document.body.insertBefore(canvas, document.body.childNodes[0]);
+
+      var context = canvas.getContext('2d');
+
+      var rad = Math.PI / 180;
+      var ag = 160;
+      var x = 250;
+      var y = 250;
+      var r = 100;
+      var angle1 = 0;
+      var angle2 = 270;
+     
+      context.fillStyle = '#ff0000';
+      context.save();
+      context.beginPath();
+      context.moveTo(x, y);
+      context.arc(x, y, r, angle1 * Math.PI / 180, angle2 * Math.PI / 180, false);
+      context.closePath();
+      context.restore();
+
+      context.stroke();
+      
+      context.fill();
+    }
+
+  </script>
+</body>
+
+</html>

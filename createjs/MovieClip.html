@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MovieClip</title>
+</head>
+<body>
+<canvas id="stage"></canvas>
+
+<script src="http://localhost:8001/createjs/EaselJS/lib/easeljs-NEXT.min.js"></script>
+<script src="http://localhost:8001/createjs/TweenJS/lib/tweenjs-NEXT.min.js"></script>
+
+<script>
+  window.onload = function() {
+    var canvas = document.querySelector('#stage');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var stage = new createjs.Stage(canvas);
+    createjs.Ticker.setFPS(60);
+    // createjs.Ticker.timingMode = createjs.Ticker.RAF;
+    createjs.Ticker.addEventListener('tick', stage);
+
+    var mc = new createjs.MovieClip();
+    stage.addChild(mc);
+
+    var ball = new createjs.Shape();
+    ball.graphics.beginFill('red').drawCircle(0, 0, 20);
+    ball.x = ball.y = 100;
+
+
+    var ball1 = new createjs.Shape();
+    ball1.graphics.beginFill('blue').drawCircle(0, 0, 20);
+    ball1.x = 100;
+    ball1.y = 150;
+
+    var ballMove = createjs.Tween.get(ball)
+      .to({ x: 600 }, 1000).call(handleTween);
+
+    var ball1Move = createjs.Tween.get(ball1)
+      .to({ x: 600 }, 10).call(handleTween);
+
+    mc.timeline.addTween(ballMove);
+    mc.timeline.addTween(ball1Move);
+
+    function handleTween () {
+      console.log('动画结束');
+    }
+
+  }
+</script>
+</body>
+</html>

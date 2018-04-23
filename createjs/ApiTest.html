@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ApiTest</title>
+</head>
+<body>
+  <canvas id="stage" width="800" height="800"></canvas>
+
+  <script src="http://localhost:8001/createjs/EaselJS/lib/easeljs.min.js"></script>
+  <script>
+    window.onload = function() {
+      var canvas = document.querySelector('#stage');
+      var stage = new createjs.Stage(canvas);
+      
+      // var shape = new createjs.Shape();
+      // shape.graphics.beginFill('#ff0000').drawRect(0, 0, 100, 100);
+      // shape.x = 0;
+      // shape.y = 0;
+
+      // var graphics = new createjs.Graphics().beginFill('#ffff00').drawRect(0, 0, 100, 100);
+      // var shape1 = new createjs.Shape(graphics);
+      // shape1.x = 110;
+      // shape1.y = 0;
+
+      // stage.addChild(shape);
+      // stage.addChild(shape1);
+
+      var shape = new createjs.Shape();
+      // shape.graphics.beginStroke('red').moveTo(10, 10).lineTo(100, 100).arc(100, 100, 50, 0, Math.PI / 180 * 180, 0);
+      // shape.graphics.beginStroke('red').moveTo(10, 10).lineTo(100, 100).arcTo(150, 100, 150, 500, 50);
+      // shape.graphics.beginStroke('red').moveTo(10, 10).lineTo(100, 100).quadraticCurveTo(150, 50, 100, 50); // (cpx, cpy, x, y)
+      shape.graphics.beginStroke('red').moveTo(10, 10).lineTo(100, 100).curveTo(150, 50, 200, 150); // (cpx, cpy, x, y)  == quadraticCurveTo == qt
+      // shape.graphics.beginStroke('red').moveTo(10, 10).lineTo(100, 100).bezierCurveTo(150, 100, 150, 50, 100, 50); // (cpx1, cpy1, cpx2, cpy2, x, y) 
+      // shape.graphics.setStrokeStyle(10, 0, 2).setStrokeDash([20, 10]).beginLinearGradientStroke(['red', 'blue'], [0, 1], 0, 0, 500, 40).moveTo(10, 40).lineTo(500, 40).lineTo(500, 200);
+      // shape.graphics.beginFill('red').drawRoundRect(0, 0, 100, 100, 10);
+      // shape.graphics.beginFill('red').drawCircle(100, 100, 100);
+      // shape.graphics.beginRadialGradientFill(['red', 'blue'], [0, 1], 100, 100, 0, 100, 100, 100).drawCircle(100, 100, 100);// 在个圆之间形成渐变
+      
+      stage.addChild(shape);
+
+      // var txt = new createjs.Text("Hello CreateJS!", "24px Arial", "blue");
+      // txt.lineWidth = 150;// 文字换行宽度
+      // stage.addChild(txt);
+
+      // var img = new Image();
+
+      // img.onload = function() {
+      //   var shape = new createjs.Shape();
+      //   shape.graphics.beginFill('red').drawCircle(435, 155, 100);
+        
+      //   var blurFilter = new createjs.BlurFilter(10, 10, 2);
+      //   var margins = blurFilter.getBounds();
+      //   console.log(margins);
+      //   var image = new createjs.Bitmap(img);
+      //   console.log(image.getBounds());
+      //   image.filters = [blurFilter];
+      //   image.mask = shape;
+      //   // image.cache(margins.x, margins.y, img.width + margins.width, img.height + margins.height);
+      //   image.cache(0, 0, img.width, img.height);
+      //   stage.addChild(image);
+      //   stage.update();
+      // }
+
+      // img.src = './img.jpg';
+
+      stage.update();
+    }
+  </script>
+</body>
+</html>

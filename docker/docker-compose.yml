@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+
+  webapp:
+    build: .
+    # image: "nginx:cc"
+    ports: 
+      - "8082:80"
+    volumes:
+      - "/Users/codecook/workspace/localdocs:/data"
+    # 覆盖默认的启动命令
+    command: $COMMAND

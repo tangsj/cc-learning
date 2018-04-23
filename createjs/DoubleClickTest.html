@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DoubleClickTest</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="stage" width="1242" height="270"></canvas>
+
+<script src="http://localhost:8001/createjs/EaselJS/lib/easeljs.min.js"></script>
+
+<script>
+    window.onload = function() {
+        var canvas = document.querySelector('#stage');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var stage = new createjs.Stage(canvas);
+        createjs.Touch.enable(stage);
+        stage.enableMouseOver();
+
+        var container = new createjs.Container();
+
+        var shape = new createjs.Shape();
+        shape.graphics.beginFill('red').arc(100, 100, 50, 0, Math.PI / 180 * 180, 0);
+        container.addChild(shape);
+        stage.addChild(container);
+
+        container.addEventListener('dblclick', function() {
+            alert('dbclick');
+        });
+
+        stage.update();
+    }
+</script>
+</body>
+</html>
