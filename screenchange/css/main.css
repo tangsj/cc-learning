@@ -1,0 +1,34 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body,html,.wrap{width: 100%;height: 100%;background: #000} 
+
+/*假如添加了video标签,可能会出现video标签默认置顶的情况,解决这个bug可以通过样式设置来规避;*/
+.compatibleStyle {
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+  -moz-backface-visibility:hidden; 	/* Firefox */
+  -ms-backface-visibility:hidden; 	/* Internet Explorer */
+  -webkit-perspective: 0;
+  -webkit-transform: translate3d(0,0,0); 
+  visibility:visible;
+}
+
+.wrap{
+  background: red;
+  transform-origin: 0 0;
+}
+
+.slg{
+  width: 811px;
+  height: 247px;
+  background: url(../images/slg.png) no-repeat;
+  background-size: cover;
+}
+.btn{
+  width: 275px;
+  height: 80px;
+  background: url(../images/btn-again.png) no-repeat;
+  background-size: cover;
+}
