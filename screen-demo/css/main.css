@@ -1,0 +1,56 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body,html,
+.wrap{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+/*假如添加了video标签,可能会出现video标签默认置顶的情况,解决这个bug可以通过样式设置来规避;*/
+.compatibleStyle {
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+  -moz-backface-visibility:hidden; 	/* Firefox */
+  -ms-backface-visibility:hidden; 	/* Internet Explorer */
+  -webkit-perspective: 0;
+  -webkit-transform: translate3d(0,0,0); 
+  visibility:visible;
+}
+
+.wrap{
+  transform-origin: 0 0;
+}
+
+/* Stage */
+.stage{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.screen{
+  border: 1px solid black;
+  margin: 0;
+  position: relative;
+}
+
+.screen .center{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #F00;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.screen a{
+  font-size: 30px;
+  color: #f00;
+}

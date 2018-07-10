@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>impress</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body, #impress{
+      width: 100%;
+      height: 100%;
+    }
+    .step {
+      position: relative;
+      width: 900px;
+      padding: 40px;
+      margin: 20px auto;
+
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing:    border-box;
+      -ms-box-sizing:     border-box;
+      -o-box-sizing:      border-box;
+      box-sizing:         border-box;
+
+      font-size: 48px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div id="impress">
+    <div id="bored1" class="step" data-x="-1000">
+      <q>11111Aren’t you just
+        <b>bored</b> with all those slides-based presentations?</q>
+    </div>
+    <div id="bored2" class="step" data-x="-2000">
+      <q>22222Aren’t you just
+        <b>bored</b> with all those slides-based presentations?</q>
+    </div>
+  </div>
+
+  <script src="js/impress.js"></script>
+  <script>
+    impress().init();
+  </script>
+</body>
+</html>

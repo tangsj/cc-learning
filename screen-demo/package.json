@@ -1,0 +1,23 @@
+{
+  "name": "screenchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.2.4",
+    "css-mqpacker": "^6.0.1",
+    "csswring": "^6.0.2",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.2",
+    "postcss": "^6.0.16",
+    "postcss-adaptive": "^0.5.0",
+    "postcss-import": "^11.0.0",
+    "postcss-nested": "^3.0.0"
+  }
+}
