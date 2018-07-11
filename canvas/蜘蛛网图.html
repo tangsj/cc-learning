@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>蜘蛛网图 | Radar</title>
+  <script src="./TweenMax.min.js"></script>
 </head>
 <body>
   <canvas id="stage" width="1000" height="1000" style="width: 500px; height: 500px;"></canvas>
 
   <script>
+    var opt = {
+      p: 0,
+    }
     var rad = Math.PI / 180;
 
     var stage = document.getElementById('stage');
@@ -18,7 +22,7 @@
     var width = stage.width;
     var height = stage.height;
 
-    var count = 6;
+    var count = 10;
     var center = width / 2;
     var rMax = center - 50;
     var angle = 360 / count;
@@ -28,7 +32,11 @@
       ['防守', 46],
       ['射门', 50],
       ['传球', 80],
-      ['耐力', 60]]; //数据
+      ['耐力', 60],
+      ['Code', 100],
+      ['回家拉', 60], 
+      ['创高', 90],
+      ['Tangsj', 50]]; //数据
 
     function drawPolygon() {
       // 画多边型
@@ -88,11 +96,11 @@
         var txtInfo = ctx.measureText(txt);
         
         if (a >= 0 && a < 90) {
-          ctx.fillText(txt, x, y + fontSize / 2);
-        } else if ( a >= 90 && a < 180) {
           ctx.fillText(txt, x, y + fontSize);
+        } else if ( a >= 90 && a < 180) {
+          ctx.fillText(txt, x - txtInfo.width, y + fontSize);
         } else if ( a >= 180 && a < 270) {
-          ctx.fillText(txt, x - txtInfo.width, y - fontSize /2);
+          ctx.fillText(txt, x - txtInfo.width, y);
         } else if ( a >= 270 && a < 360) {
           ctx.fillText(txt, x, y);
         }
@@ -107,7 +115,7 @@
       ctx.beginPath();
       
       for (var i = 0; i < count; i++) {
-        var d = data[i][1] / 100 * (p / 100);
+        var d = data[i][1] / 100 * (opt.p / 100);
         
         var x = center + rMax * Math.cos(rad * (i * angle)) * d;
         var y = center + rMax * Math.sin(rad * (i * angle)) * d;
@@ -122,13 +130,8 @@
       ctx.restore();
     }
 
-    var p = 0;
     function show() {
       ctx.clearRect(0, 0, width, height);
-
-      if (p < 100) {
-        p += 1;
-      }
       drawPolygon();
       drawLines();
       drawText();
@@ -136,6 +139,8 @@
       requestAnimationFrame(show);
     }
     requestAnimationFrame(show);
+
+    TweenMax.to(opt, 0.8, { p: 100, ease: Back.easeOut });
   </script>
 </body>
 </html>
