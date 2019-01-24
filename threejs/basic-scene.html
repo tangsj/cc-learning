@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
   <title>Threejs Basic Scene</title>
   <style>
     body{
@@ -9,7 +10,7 @@
       overflow: hidden;
     }
   </style>
-  <script src="three.js"></script>
+  <script src="libs/three.js"></script>
 </head>
 <body>
   <div id="webgl-output"></div>
@@ -18,36 +19,89 @@
       // 场景
       var scene = new THREE.Scene();
       // 相机
-      var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      var camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
   
       var renderer = new THREE.WebGLRenderer();
       // renderer.setClearColor(new THREE.Color(0xeeeeee));
+      renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setClearColor(0xEEEEEE);
-      renderer.setSize( window.innerWidth, window.innerHeight );
+      renderer.setSize( window.innerWidth, window.innerHeight);
       document.body.appendChild( renderer.domElement );
   
-      //
-      //
-      // var planeGeometry = new THREE.PlaneGeometry(60, 20);
-      // var planeMaterial = new THREE.MeshBasicMaterial({ color:  0xcccccc });
-      // var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-      //
-      // plane.rotation.x = -0.5 * Math.PI;
-      // plane.position.x = 15;
-      // plane.position.y = 0;
-      // plane.position.z = 0;
-      //
+      var planeGeometry = new THREE.PlaneGeometry(20, 20);
+      var planeMaterial = new THREE.MeshBasicMaterial({ color:  0xcccccc });
+      var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      
+      plane.rotation.x = -0.5 * Math.PI;
+      plane.position.x = 0;
+      plane.position.y = 0;
+      plane.position.z = 0;
+      
       // scene.add(plane);
-  
-      var axes = new THREE.AxisHelper(20);
+
+
+      var boxGeometry = new THREE.BoxGeometry(3, 3, 3);
+      var boxMaterial = new THREE.MeshBasicMaterial({ color: 0xffcccc });
+      var box = new THREE.Mesh(boxGeometry, boxMaterial);
+      box.position.z = 1;
+      // box.position.y = 3;
+      // box.position.x = 1;
+      scene.add(box);
+
+      // draw line
+      var lineGeometry = new THREE.Geometry();
+      // var lineMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+      var lineMaterial = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
+      
+      lineGeometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+      lineGeometry.vertices.push(new THREE.Vector3(0, 0, 10));
+      var color1 = new THREE.Color(0x0000ff), color2 = new THREE.Color(0xFFfff0);
+      lineGeometry.colors.push(color1, color2);
+      // lineGeometry.vertices.push(new THREE.Vector3(10, 0, 0));
+      // lineGeometry.vertices.push(new THREE.Vector3(0, 10, 0));
+      // lineGeometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+
+      var line = new THREE.Line(lineGeometry, lineMaterial);
+
+      scene.add(line);
+
+      // text
+      var fontLoader = new THREE.FontLoader();
+      fontLoader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+        var textGeometry = new THREE.TextGeometry('CodeCook', {
+          font: font,
+          size: 4,
+          height: 0.5,
+          // bevelEnabled: true,
+          // bevelThickness: 1,
+          // bevelSize: 0.1,
+          // bevelSegments: 1,
+        });
+
+        var tm = new THREE.Mesh(
+          textGeometry,
+          new THREE.MeshBasicMaterial({ color: 0x00ffcc })
+        );
+
+        scene.add(tm);
+      });
+
+      // 添加一个参考坐标系
+      var axes = new THREE.AxesHelper(20);
       scene.add(axes);
       
-      camera.position.x = 1;
-      camera.position.y = 1;
-      camera.position.z = 2;
-      camera.lookAt(scene.position);
-      
+      // camera.position.x = 30;
+      // camera.position.y = 30;
+      // camera.position.z = 30;
+      camera.position.set(30, 30, 30);
+      // camera.lookAt(scene.position);
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
+
       function render() {
+        // box.position.z -= 0.01;
+        // box.rotation.x -= 0.01;
+        
+        // scene.rotation.y += 0.02;
         requestAnimationFrame( render );
         renderer.render( scene, camera );
       }

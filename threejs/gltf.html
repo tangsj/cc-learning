@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Threejs GLTF Import</title>
+  <style>
+    body{
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+  <script src="libs/three.js"></script>
+  <script src="libs/stats.min.js"></script>
+  <script src="libs/loaders/GLTFLoader.js"></script>
+  <script src="libs/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <div id="webgl-output"></div>
+  <script>
+    window.onload = function(){
+      // 场景
+      var scene = new THREE.Scene();
+      var urls = ['posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg'];
+      var loader = new THREE.CubeTextureLoader().setPath('textures/cube/Bridge2/');
+      // var background = loader.load(urls);
+
+      var background = new THREE.Color(0xffffff);
+
+      scene.background = background;
+
+      // 相机
+      var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
+      camera.position.set(-1.8, 0.9, 5.7);
+      camera.lookAt(scene.position);
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize( window.innerWidth, window.innerHeight);
+      renderer.gammaOutput = true;
+      document.body.appendChild( renderer.domElement );
+
+      var controls = new THREE.OrbitControls(camera);
+      controls.target.set(0, -0.2, -0.2);
+      controls.update();
+      
+      //  添加一个光源 户外光照光源
+      // THREE.HemisphereLight(天空的反光颜色, 地面的反光颜色, 光的强度);
+      var light = new THREE.HemisphereLight(0xffbbff, 0x000000, 2);
+      light.position.set(0, 4, 0);
+      scene.add(light);
+  
+      // gltf
+      var gltfLoader = new THREE.GLTFLoader();
+      gltfLoader.setPath('gltf/skull_downloadable/');
+      gltfLoader.load('scene.gltf', function (gltf) {
+        console.log(gltf);
+        // gltf.scene.traverse(function (child) {
+        //   if (child.isMesh) {
+        //     child.material.envMap = background;
+        //   }
+        // });
+
+        scene.add(gltf.scene);
+      }, function (xhr) {
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      }, function (error) {
+        console.log(error);
+      });
+      
+      // 添加一个参考坐标系
+      var axes = new THREE.AxesHelper(20);
+      scene.add(axes);
+
+      var stats = new Stats();
+      document.body.appendChild(stats.dom);
+
+      function render() {
+        requestAnimationFrame( render );
+        renderer.render( scene, camera );
+
+        stats.update();
+      }
+
+      render();
+    }
+  </script>
+</body>
+</html>
