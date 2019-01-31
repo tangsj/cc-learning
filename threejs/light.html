@@ -47,36 +47,46 @@
       for (var i = -10; i <= 10; i++) {
         var line = new THREE.Line(geometry, material);
         line.position.z = (i * 2);
+        line.position.y = -5;
         scene.add(line);
 
         var line = new THREE.Line(geometry, material);
         line.position.x = (i * 2);
         line.rotation.y = 90 * rad;
+        line.position.y = -5;
         scene.add(line);
       }
 
       // 创建一个物体
-      var geometry = new THREE.BoxGeometry(10, 10, 10);
-      var material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
+      var geometry = new THREE.BoxGeometry(8, 8, 8);
+      var material = new THREE.MeshLambertMaterial({ color: 0x0cff00 });
       // var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
       var cube = new THREE.Mesh(geometry, material);
       cube.position.set(0, 5, 0);
       scene.add(cube);
 
-      // 添加一个光源
-      // var light = new THREE.AmbientLight(0xffffff, 0.5);
-      // light.position.set(0, 5, 0);
+      // 创建一个物体
+      var cube2 = new THREE.Mesh(geometry, material);
+      cube2.position.set(0, 5, 15);
+      scene.add(cube2);
 
-      // var light = new THREE.DirectionalLight(0xffffff, 0.5);
-      // light.position.set(0, 0, 10);
+      // 添加一个光源
+      var light = new THREE.AmbientLight(0xffffff, 0.41);
+      light.position.set(0, 5, 0);
+
+      var lightd = new THREE.DirectionalLight(0xffffff, 1);
+      // light.position.set(10, 5, 10);
+      lightd.position.set(0, 0, 10);
+      scene.add(lightd);
+
 
       // var light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
       
       // var light = new THREE.PointLight(0xff0000, 1, 0);
       // light.position.set(10, 15, 10);
 
-      var light = new THREE.SpotLight(0xffffff);
-      light.position.set(-10, 5, 10);
+      // var light = new THREE.SpotLight(0xffffff);
+      // light.position.set(-10, 5, 10);
       scene.add(light);
 
       // 相机

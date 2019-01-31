@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Threejs Texture</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #e7e7e7;
+    }
+  </style>
+  <script src="libs/three.js"></script>
+  <script src="libs/stats.min.js"></script>
+  <script src="libs/controls/OrbitControls.js"></script>
+  <script src="libs/tween.min.js"></script>
+  <script src="libs/TweenMax.min.js"></script>
+</head>
+
+<body>
+  <div id="webgl-output"></div>
+
+  <canvas id="stage" width="1000" height="1000" style="width: 500px; height: 500px;"></canvas>
+
+  <script>
+    var opt = {
+      p: 0,
+    }
+
+    window.onload = function () {
+      var stage = document.getElementById('stage');
+      var ctx = stage.getContext('2d');
+
+      var rad = Math.PI / 180;
+
+      var width = stage.width;
+      var height = stage.height;
+
+      var count = 10;
+      var center = width / 2;
+      var rMax = center - 50;
+      var angle = 360 / count;
+
+      var data = [['速度', 77],
+      ['力量', 72],
+      ['防守', 46],
+      ['射门', 50],
+      ['传球', 80],
+      ['耐力', 60],
+      ['Code', 100],
+      ['回家拉', 60],
+      ['创高', 90],
+      ['Tangsj', 50]]; //数据
+
+      function drawPolygon() {
+        // 画多边型
+        ctx.save();
+
+        ctx.strokeStyle = '#B8B8B8';
+
+        var r = rMax / count;
+        for (var i = 1; i <= count; i++) {
+          ctx.beginPath();
+          var cr = r * i;
+          for (var j = 0; j < count; j++) {
+            var x = center + cr * Math.cos(rad * (j * angle));
+            var y = center + cr * Math.sin(rad * (j * angle));
+
+            ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+
+      function drawLines() {
+        ctx.save();
+        ctx.strokeStyle = '#B8B8B8';
+
+        for (var i = 0; i < count; i++) {
+          var x = center + rMax * Math.cos(rad * (i * angle));
+          var y = center + rMax * Math.sin(rad * (i * angle));
+
+          ctx.moveTo(center, center);
+          ctx.lineTo(x, y);
+        }
+
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawText() {
+
+        var textColor = '#000000';
+        var fontSize = 24;
+
+        ctx.save();
+        ctx.font = fontSize + 'px Microsoft Yahei';
+        ctx.fillStyle = textColor;
+
+        for (var i = 0; i < count; i++) {
+          var a = i * angle;
+          var x = center + rMax * Math.cos(rad * a);
+          var y = center + rMax * Math.sin(rad * a);
+
+          var txt = data[i][0];
+          var txtInfo = ctx.measureText(txt);
+
+          if (a >= 0 && a < 90) {
+            ctx.fillText(txt, x, y + fontSize);
+          } else if (a >= 90 && a < 180) {
+            ctx.fillText(txt, x - txtInfo.width, y + fontSize);
+          } else if (a >= 180 && a < 270) {
+            ctx.fillText(txt, x - txtInfo.width, y);
+          } else if (a >= 270 && a < 360) {
+            ctx.fillText(txt, x, y);
+          }
+        }
+
+        ctx.restore();
+      }
+
+      function drawRegion() {
+        ctx.save();
+
+        ctx.beginPath();
+
+        for (var i = 0; i < count; i++) {
+          var d = data[i][1] / 100 * (opt.p / 100);
+
+          var x = center + rMax * Math.cos(rad * (i * angle)) * d;
+          var y = center + rMax * Math.sin(rad * (i * angle)) * d;
+
+          ctx.lineTo(x, y);
+        }
+
+        ctx.closePath();
+
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function show() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.beginPath();
+        ctx.fillStyle = "#ffffaa";
+        ctx.fillRect(0, 0, stage.width, stage.height);
+        ctx.closePath();
+        drawPolygon();
+        drawLines();
+        drawText();
+        drawRegion();
+      }
+
+      show();
+
+
+      // 场景
+      var scene = new THREE.Scene();
+
+      var stats = new Stats();
+      document.body.appendChild(stats.dom);
+
+      // 添加一个参考坐标系
+      var axes = new THREE.AxesHelper(20);
+      scene.add(axes);
+
+      // 线
+      var p1 = new THREE.Vector3(-20, 0, 0);
+      var p2 = new THREE.Vector3(20, 0, 0,);
+
+      var geometry = new THREE.Geometry();
+      geometry.vertices.push(p1);
+      geometry.vertices.push(p2);
+
+      var material = new THREE.LineBasicMaterial({
+        color: 0x000000,
+      });
+
+      for (var i = -10; i <= 10; i++) {
+        var line = new THREE.Line(geometry, material);
+        line.position.z = (i * 2);
+        scene.add(line);
+
+        var line = new THREE.Line(geometry, material);
+        line.position.x = (i * 2);
+        line.rotation.y = 90 * rad;
+        scene.add(line);
+      }
+
+      var loader = new THREE.TextureLoader();
+      loader.load('textures/disturb.jpg', function (texture) {
+        // 创建一个物体
+        var geometry = new THREE.BoxGeometry(8, 8, 8);
+        var material = new THREE.MeshBasicMaterial({ map: texture });
+        var cube = new THREE.Mesh(geometry, material);
+        cube.position.set(0, 5, 15);
+        scene.add(cube);
+      }, void 0, function (err) {
+        console.log(err);
+      });
+
+      // 创建一个物体
+      var boxgeometry = new THREE.BoxGeometry(8, 8, 8);
+      var texture = new THREE.CanvasTexture(stage);
+
+      var canvasmaterial = new THREE.MeshBasicMaterial({ map: texture });
+      var cube = new THREE.Mesh(boxgeometry, canvasmaterial);
+      cube.position.set(0, 5, -15);
+      scene.add(cube);
+      
+      // 相机
+      var camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(40, 40, 40);
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+      var controls = new THREE.OrbitControls(camera);
+      controls.target = new THREE.Vector3(0, 0, 0);
+      controls.autoRotate = false;
+      var clock = new THREE.Clock();
+      
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setClearColor(new THREE.Color(0xeeeeee));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      function render() {
+        texture.needsUpdate = true;
+
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+        stats.update();
+        controls.update(clock.getDelta());
+        show();
+      }
+      render();
+      TweenMax.to(opt, 0.8, { p: 100, ease: Back.easeOut });
+    }
+  </script>
+</body>
+
+</html>
