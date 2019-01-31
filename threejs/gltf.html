@@ -41,14 +41,29 @@
       document.body.appendChild( renderer.domElement );
 
       var controls = new THREE.OrbitControls(camera);
-      controls.target.set(0, -0.2, -0.2);
+      // controls.target.set(0, -0.2, -0.2);
+      controls.target = new THREE.Vector3(0, 0, 0);
+      controls.autoRotate = false;
       controls.update();
       
       //  添加一个光源 户外光照光源
       // THREE.HemisphereLight(天空的反光颜色, 地面的反光颜色, 光的强度);
-      var light = new THREE.HemisphereLight(0xffbbff, 0x000000, 2);
-      light.position.set(0, 4, 0);
-      scene.add(light);
+      // var light = new THREE.HemisphereLight(0xffbbff, 0x000000, 2);
+      // light.position.set(0, 4, 0);
+      // scene.add(light);
+      
+      // 环境光
+      var ambientLight = new THREE.AmbientLight(0xffffff);
+      scene.add(ambientLight);
+
+      // 点光源
+      var pointLight = new THREE.PointLight(0xff0000, 1, 0);
+      pointLight.position.set(0, 1, 10)
+      scene.add(pointLight);
+
+      // 聚光灯
+      // var spotLight = new THREE.SpotLight(0xffffff, 1, 0);
+      // scene.add(spotLight);
   
       // gltf
       var gltfLoader = new THREE.GLTFLoader();
@@ -69,8 +84,8 @@
       });
       
       // 添加一个参考坐标系
-      var axes = new THREE.AxesHelper(20);
-      scene.add(axes);
+      // var axes = new THREE.AxesHelper(20);
+      // scene.add(axes);
 
       var stats = new Stats();
       document.body.appendChild(stats.dom);
@@ -80,6 +95,7 @@
         renderer.render( scene, camera );
 
         stats.update();
+        controls.update();
       }
 
       render();

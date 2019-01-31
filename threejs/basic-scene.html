@@ -11,6 +11,7 @@
     }
   </style>
   <script src="libs/three.js"></script>
+  <script src="libs/tween.min.js"></script>
 </head>
 <body>
   <div id="webgl-output"></div>
@@ -86,24 +87,24 @@
         scene.add(tm);
       });
 
+      new TWEEN.Tween(box.position)
+        .to({z: 20}, 3000).start();
+
       // 添加一个参考坐标系
       var axes = new THREE.AxesHelper(20);
       scene.add(axes);
       
-      // camera.position.x = 30;
-      // camera.position.y = 30;
-      // camera.position.z = 30;
       camera.position.set(30, 30, 30);
-      // camera.lookAt(scene.position);
       camera.lookAt(new THREE.Vector3(0, 0, 0));
 
       function render() {
         // box.position.z -= 0.01;
         // box.rotation.x -= 0.01;
-        
         // scene.rotation.y += 0.02;
         requestAnimationFrame( render );
         renderer.render( scene, camera );
+
+        TWEEN.update();
       }
       render();
     }
