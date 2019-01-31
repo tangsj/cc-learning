@@ -176,28 +176,9 @@
       var axes = new THREE.AxesHelper(20);
       scene.add(axes);
 
-      // 线
-      var p1 = new THREE.Vector3(-20, 0, 0);
-      var p2 = new THREE.Vector3(20, 0, 0,);
+      var gridHelper = new THREE.GridHelper(100, 100);
+      scene.add(gridHelper);
 
-      var geometry = new THREE.Geometry();
-      geometry.vertices.push(p1);
-      geometry.vertices.push(p2);
-
-      var material = new THREE.LineBasicMaterial({
-        color: 0x000000,
-      });
-
-      for (var i = -10; i <= 10; i++) {
-        var line = new THREE.Line(geometry, material);
-        line.position.z = (i * 2);
-        scene.add(line);
-
-        var line = new THREE.Line(geometry, material);
-        line.position.x = (i * 2);
-        line.rotation.y = 90 * rad;
-        scene.add(line);
-      }
 
       var loader = new THREE.TextureLoader();
       loader.load('textures/disturb.jpg', function (texture) {
@@ -237,7 +218,7 @@
       document.body.appendChild(renderer.domElement);
 
       function render() {
-        texture.needsUpdate = true;
+        texture.needsUpdate = true; //  这里居然还需要再设置。
 
         requestAnimationFrame(render);
         renderer.render(scene, camera);
