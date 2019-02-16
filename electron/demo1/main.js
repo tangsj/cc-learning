@@ -15,7 +15,7 @@ app.on('ready', function() {
 
   window.on('closed', () => {
     window = null
-  });
+  }); 
 
   // window.webContents.openDevTools()
 
