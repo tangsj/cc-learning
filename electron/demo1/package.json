@@ -5,8 +5,11 @@
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
-    "packager": "electron-packager . hjl_admin --all --out ../out --electron-version=1.4.13"
+    "packager": "electron-packager . APP --all --overwrite --out ../out --electron-version=4.0.4"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^7.1.4"
+  }
 }
