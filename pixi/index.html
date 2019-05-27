@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PIXI DEMO</title>
+  <script src="pixi.min.js"></script>
+  <script src="tink.js"></script>
+  <script src="scaleToWindow.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <!-- <img src="./cat.png" id="img"> -->
+  <script>
+    window.onload = function () {
+      PIXI.utils.sayHello("HAHAHA");
+
+      const base = {
+        width: 750,
+        height: 1334
+      }
+
+      const real = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+
+      const app = new PIXI.Application({
+        // autoStart: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        autoDensity: true,
+        antialias: true, // 抗锯齿
+        resolution: window.devicePixelRatio
+      });
+      document.body.appendChild(app.view);
+      
+      // scaleToWindow(app.view);
+
+      app.renderer.backgroundColor = 0xffffff;
+
+      let t = new Tink(PIXI, app.renderer.view);
+
+      const root = new PIXI.Container();
+      root.width = base.width;
+      root.height = base.height;
+
+      
+      
+
+      const scale = real.width / base.width
+      console.log(scale);
+      root.scale.x = scale;
+      root.scale.y = scale;
+      root.x = 0;
+      root.y = 0;
+      app.stage.addChild(root);
+      
+      // Rectangle
+      const graphics = new PIXI.Graphics();
+      graphics.beginFill(0xDE3249);
+      graphics.drawRect(0, 0, root.width, root.height);
+      graphics.endFill();
+
+      root.addChild(graphics);
+
+      // app.renderer.view.style.position = "absolute";
+      // app.renderer.view.style.display = "block";
+      // app.renderer.autoDensity = true;
+      // app.renderer.resize(window.innerWidth, window.innerHeight);
+
+      const loader = new PIXI.Loader();
+      loader
+        .add('img.jpg')
+        .add('sprite.png')
+        .add('test.json')
+        .add('animals.json')
+        .add('button.json')
+        .add('cccc', 'font/0123456789-export.xml')
+        // .add('cat.png')
+        .load(setup);
+
+      function setup() {
+        const til = PIXI.Texture.from('111.jpg');
+        const tilingSprite = new PIXI.TilingSprite(til, 750, 237);
+
+        root.addChild(tilingSprite);
+
+        tilingSprite.tint = 0xFF0066; // 着色。 可以改变色调
+
+        // const texture = PIXI.utils.TextureCache['img.jpg'];
+        
+        const sprite = new PIXI.Sprite(
+          loader.resources['img.jpg'].texture
+        );
+        root.addChild(sprite);// 对应有 removeChild
+        sprite.x = 100;
+        sprite.y = 100;
+
+        sprite.scale.x = 1; // scale 是成比例的改变 widht 和 height. 
+        sprite.scale.y = 1;
+
+        sprite.width = 100;
+        sprite.height = 100;
+
+        sprite.rotation = Math.PI / 5; // 以弧度为单位
+        // sprite.visible = false;
+
+        const texture1 = loader.resources['sprite.png'].texture;
+        texture1.frame = new PIXI.Rectangle(96, 64, 32, 32);
+        const sprite2 = new PIXI.Sprite(texture1);
+        root.addChild(sprite2);
+        
+        // mask
+        const ms = new PIXI.Sprite(texture1);
+        sprite.mask = ms;
+        ms.anchor.x = 0.5;
+        ms.anchor.y = 0.5;
+        ms.x = 100
+        ms.y = 150
+        root.addChild(ms);
+        
+        const sprite1 = new PIXI.Sprite(
+          loader.resources['test.json'].textures['01.png']
+        );
+        // sprite1.anchor.x = 0;
+        // sprite1.anchor.y = 0;
+        sprite1.x = 100;
+        sprite1.y = 100;
+
+        sprite1.vx = 1;
+        sprite1.vy = 1;
+
+        root.addChild(sprite1);
+        
+        const animals = loader.resources['animals.json'];
+        const textures = [
+          animals.textures['cat.png'],
+          animals.textures['hedgehog.png'],
+          animals.textures['tiger.png'],
+        ];
+        
+        const animateSprite = new PIXI.AnimatedSprite(textures);
+        animateSprite.x = 100;
+        animateSprite.animationSpeed = 0.25;
+        animateSprite.play();
+        root.addChild(animateSprite)
+        
+        // const ff = PIXI.Texture.from(document.getElementById('img'));
+        const ff = PIXI.Texture.from('blob.png');
+        const ffsprite = new PIXI.Sprite(ff);
+        ffsprite.x = 200;
+        ffsprite.y = 100;
+        root.addChild(ffsprite);
+
+        // 混合模式 -- WebGL 渲染器仅支持 NORMAL，ADD，MULTIPLY 和 SCREEN 混合模式。任何其他模式都会像 NORMAL 一样。
+        ffsprite.blendMode = PIXI.BLEND_MODES.MULTIPLY;
+        // app.render();
+
+        // 滤镜
+        let blurFilter = new PIXI.filters.BlurFilter();
+        blurFilter.blur = 2;
+        sprite1.filters = [blurFilter];
+
+        // ROPE
+        let count = 0;
+        let numberOfSegments = 20;
+        let imageWidth = 600;
+        let ropeSegment = imageWidth / numberOfSegments;
+
+        let points = [];
+        for (let i = 0; i < numberOfSegments; i++) {
+          points.push(new PIXI.Point(i * ropeSegment, 0));
+        }
+
+        let snake = new PIXI.SimpleRope(PIXI.Texture.from('rope.png'), points);
+        snake.y = 120;
+        snake.x = 300;
+        snake.scale.x = 0.5;
+        snake.scale.y = 0.5;
+        root.addChild(snake);
+
+        // Tink
+        let pointer = t.makePointer();
+        pointer.press = () => console.log("触发 pressed 事件");
+        pointer.release = () => console.log("触发 released 事件");
+        pointer.tap = () => console.log("触发 tapped 事件");
+
+        t.makeDraggable(ffsprite, animateSprite);
+
+        t.makeInteractive(sprite2);
+        sprite2.tap = () => {
+          // console.log('sprite2');
+        }
+        // 快速创建 4个方向的控制器
+        t.arrowControl(sprite2, 5);
+        sprite2.vx = 0;
+        sprite2.vy = 0;
+
+        // button
+        const id = loader.resources["button.json"].textures;
+        
+        const btnframes = [
+          id["up.png"],
+          id["over.png"],
+          id["down.png"]
+        ]; 
+        const playButton = t.button(btnframes, 64, 128);
+        root.addChild(playButton);
+
+        
+        let text = new PIXI.Text('This is a PixiJS text', { fontFamily: 'Arial', fontSize: 24, fill: 0xff1010, align: 'center' });
+        text.y = 400;
+        root.addChild(text);
+
+        // bitmapText
+        // let bitmapText = new PIXI.BitmapText("1111", { font: "35px cccc", align: "center" });
+        // bitmapText.y = 300;
+        // root.addChild(bitmapText);
+
+        app.ticker.add((delta) => {
+          t.update();
+
+          sprite1.x += sprite1.vx;
+          // sprite1.y += sprite1.vy;
+
+          tilingSprite.tilePosition.x -= 4;
+
+          ms.scale.x += 0.1;
+          ms.scale.y += 0.1;
+
+          //
+          count += 0.1;
+          for (let i = 0; i < points.length; i++) {
+            points[i].y = Math.sin((i * 0.5) + count) * 30;
+            points[i].x = i * ropeSegment + Math.cos((i * 0.3) + count) * numberOfSegments;
+          }
+
+
+          if (pointer.hitTestSprite(ffsprite)) {
+            pointer.cursor = 'pointer';
+          } else {
+            pointer.cursor = 'auto';
+          }
+
+
+          sprite2.x += sprite2.vx;
+          sprite2.y += sprite2.vy;
+        });
+      }
+      console.log(app);
+    }
+  </script>
+</body>
+</html>

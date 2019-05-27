@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PIXI BitMapText</title>
+  <script src="pixi.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <!-- <img src="./cat.png" id="img"> -->
+  <script>
+    window.onload = function () {
+      PIXI.utils.sayHello("HAHAHA");
+
+      const app = new PIXI.Application({
+        // autoStart: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        autoDensity: true,
+        antialias: true, // 抗锯齿
+        resolution: window.devicePixelRatio
+      });
+      document.body.appendChild(app.view);
+
+      app.renderer.backgroundColor = 0xffffff;
+
+      const loader = new PIXI.Loader();
+      loader
+        .add('desyrel', './desyrel.xml')
+        // .add('./font/0123456789-export.xml')
+        .add('./font/0123456789-export.fnt')
+        .load(setup);
+
+      function setup() {
+        
+        let text = new PIXI.Text('This is a PixiJS text', { fontFamily: 'Arial', fontSize: 24, fill: 0xff1010, align: 'center' });
+        text.y = 400;
+        app.stage.addChild(text);
+
+        // bitmapText
+        let bitmapText = new PIXI.BitmapText("111133333", { font: "35px ccfont", align: "center" });
+        bitmapText.y = 300;
+        app.stage.addChild(bitmapText);
+      }
+      console.log(app);
+    }
+  </script>
+</body>
+</html>
