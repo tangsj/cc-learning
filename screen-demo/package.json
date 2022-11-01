@@ -12,7 +12,7 @@
     "autoprefixer": "^7.2.4",
     "css-mqpacker": "^6.0.1",
     "csswring": "^6.0.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.2",
     "postcss": "^6.0.16",
